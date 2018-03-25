@@ -1,0 +1,25 @@
+block (type=truefalse)
+auxiliar "bimodal.eps"
+webfile "bimodal.jpg"
+question
+: If the mean and the median have the same value then the distribution is
+unimodal. 
+answer
+False, the mean and the median having the same value implies that the
+distribution is symmetric, but it can have two modes or any other form, 
+for instance:
+
+\bigskip
+
+\tthdump{
+\begin{center}
+\leavevmode
+\epsfxsize=110pt
+\epsfbox{bimodal.eps}
+\end{center}
+}
+%%tth:\begin{html}<p><img SRC="bimodal.jpg" height=300 width=250></center>\end{html}
+
+endanswer
+endquestion
+endblock

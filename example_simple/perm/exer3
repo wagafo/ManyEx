@@ -1,0 +1,11 @@
+block
+question
+In how many ways can the numbers $0, 1, \ldots, 10$ be put in order?
+. $11!$
+. $10!$
+. $10\times 10$
+. $2^{10}$
+: None of the above answers is correct.
+endquestion
+endblock
+

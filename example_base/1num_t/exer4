@@ -1,0 +1,8 @@
+block (type=truefalse)
+question
+: The mode is a summary of the form of the distribution. 
+answer
+False, it is a summary of the center of the distribution. 
+endanswer
+endquestion
+endblock

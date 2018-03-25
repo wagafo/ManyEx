@@ -1,0 +1,58 @@
+#
+#  Exercise 1 of example database of questions
+#  Exercise on normal distribution - shortanswer
+#  3 questions
+#
+
+title "Normal Distribution"
+block (type=shortanswer rearrange=yes)
+statement
+The factory "Mantecados S.R.L." manufactures Christmas sweets in 
+the traditional way, employing 1,000 workers. The management knows
+that each worker produces a mean of 50 kgs of sweets, with a 
+standard deviation  of 3 kgs, and that this distribution is 
+approximately normal. 
+endstatement
+
+question 
+What percentage of workers produces less than a worker with
+a standardized production equal to 0.45?
+answer
+We have to look at the table of the standard normal distribution and 
+see what proportion of frequencies is reported to the left of 0.45. The 
+result is 66.36\%. 
+endanswer
+endquestion
+
+question 
+The management wants to give a prize to all the workers who 
+achieve a production of more than 57 kgs a day, and assigns a 
+budget for the prize of 10,000 euros. How much will each winning
+worker get?
+answer
+To see what percentage of workers produce more than 57 kgs we 
+standardize $X$:
+
+\[ X = {{ 57 - 50} \over {3}} = 2.33 \]
+
+The percentage of frequencies to the right of $z=1$ is 1\%, over 1,000 
+workers this represents 10 workers. Since there is a budget of 10,000 euros,
+each of the 10 workers will get 1,000 euros. 
+endanswer
+endquestion
+
+question
+The less productive workers will be moved to the packing department.
+If all workers producing less than 43 kgs per day are moved, how many
+workers will be moved to the packing department?
+answer
+We standardize again:
+
+\[ X = {{ 43 - 50} \over {3}} = -2.33 \]
+
+The percentage of frequencies to the left of $z-2.33$ is 1\%, therefore 
+over 1,000 workers a 1\% represents 10 workers. 
+endanswer
+endquestion
+
+endblock

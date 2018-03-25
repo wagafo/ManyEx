@@ -1,0 +1,18 @@
+#
+#  Exercise 5 of example database of questions
+#  Exercise on normal distribution - true/false
+#  1 question
+#
+
+block (type=truefalse)
+question
+: If to a variable that follows the normal distribution we substract its 
+mean, the resulting variable will continue being normal and its 
+standard deviation will be equal to 0. 
+answer
+False, a transformation implying a simple origin change (adding or 
+substracting the mean) will not affect the spread (which is measured by the 
+standard deviation).
+endanswer
+endquestion
+endblock

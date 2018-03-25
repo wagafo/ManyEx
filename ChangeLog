@@ -1,0 +1,81 @@
+Version 0.9
+2010-06-15
+	* Fixed bug 5: regression made statements not print in answers
+
+Version 0.8
+2010-06-15
+	* Fixed bug 4: statements repeated in other exams
+
+Version 0.7
+2010-06-15
+	* Introduced option to make fields required in web exams
+	* Fixed a couple of bugs
+
+Version 0.6
+2008-08-22
+	* Fixed a bug in create.c that was creating a stack overflow in 
+	Linux, but surprisingly not in Cygwin
+	* Removed a couple of routines fromm randomlib.c which were
+	causing some warnings but were not being used
+
+Version 0.5
+2006-10-29
+	* Changed code for random selection of exercises, so that the
+	exams use all of the exercises available in the database and do
+	not repeat the same exercise unless needed
+
+Version 0.4
+2006-10-22
+	* Introduced uncheck boxes in webform multiplechoice exams
+
+Version 0.3
+2006-10-11
+	* Fixed some minor bugs introduced in the previos release
+
+Version 0.2
+2006-10-11
+	* Fixed bug that make title of exercise continue appearing in new
+	exercises if no title was included after title was defined
+
+VERSION 0.1
+2006-09-04
+	* Added some comments on shortcomings and limitations in README
+
+VERSION 0.0.9
+2006-09-04	
+	* Fixed bug in exer.y, the value of the variable rearrange was
+	incorrectly set for some cases
+
+VERSION 0.0.8
+2006-07-29	
+	* Fixed bug in exer.y, web integer was not initialized after a block
+
+VERSION 0.0.7
+2006-07-28
+	* corrected some minor things in manyex.texi
+
+VERSION 0.0.6
+2006-07-27
+	* added a complete example of html form exam
+	* completeed the documentation on a complete example
+	* fixed in create.c: processing of latex input in options
+
+VERSION 0.0.5
+2006-07-25
+	* added a complete example of a normal LaTeX exam
+	* started working on the documentatino of a complete example
+	* fixed line numbering for errors in exercise files
+	* modified a couple of things in Makefile 
+	* fixed master.sty in example_simple, \mnanswerpaperheader was not 
+	defined
+	
+VERSION 0.0.4
+2006-07-25
+	* added example_base and example_normal, complete normal example
+	* modified README to give directions for complete normal example
+
+VERSION 0.0.3
+2006-07-24
+	* added a ";" at the end of the rules block in exer.y and desc.y,
+	which was giving an error in some systems
+	* changed MAX_STRING_SIZE to 200 instead of 1000

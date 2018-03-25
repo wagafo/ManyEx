@@ -1,0 +1,10 @@
+block (type=truefalse)
+question
+: The first quartile is a measure of spread. 
+answer
+False, it is a measure of position. With the first and third quartile
+we can get a measure of spread, since its diference, the interquartilic
+range, shows as the 50\% of the frequencies around the median. 
+endanswer
+endquestion
+endblock

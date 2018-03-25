@@ -1,0 +1,11 @@
+block
+question
+In how many ways can we choose 4 numbers from the set $\{1,\ldots,10\}$ if
+the order in which we choose them matters?
+. $\frac{10!}{6!}$
+. $10^4$
+. $6!$
+. $\frac{10!}{6!4!}$
+: None of the above answers is correct
+endquestion
+endblock

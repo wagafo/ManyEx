@@ -1,0 +1,106 @@
+#
+#  Exercise 2 of example database of questions
+#  Exercise on normal distribution - multiplechoice
+#  6 questions
+#
+
+title "Duration of the Data Analysis class"
+block (type=multiplechoice rearrange=yes)
+statement
+
+The duration of the Data Analysis class follows an approximately normal 
+distribution with mean equal to 120 minutes and standard deviation equal
+to 2 minutes. 
+endstatement
+question
+What is the approximate percentage of classes that last more than 126
+minutes?
+. Un 0.15 \% 
+. Un 1.5 \%
+. Un 15 \%
+. Un 99.7 \%
+: None of the above options is correct. 
+answer
+This corresponds to the mean plus three times the standard deviation, 
+and therefore according to the 68-95-99.7\% rule 0.3\% of the frequencies
+are left out of these limits on both sides of the distribution, looking 
+only at one side (the largest values) we get 0.3/2 = 0.15\%. 
+endanswer
+endquestion
+
+question
+What is the approximate minimum duration of the 2.5\% of shortest classes?
+. 116 minutes
+. 106 minutes
+. 126 minutes
+. 96 minutes
+: None of the above options is correct. 
+answer
+Using the rule, 120 - 2*2 = 116 minutes.
+endanswer
+endquestion
+  
+question
+What approximate percentage of classes last less than 117 minutes?
+. 6.68 \%
+. 12.34 \%
+. 9.12 \%
+. 14.93 \%
+: None of the above options is correct. 
+answer
+We standardize:
+
+\[ X = {{117 - 120}\over{2}} = -1.5 \]
+
+Looking at the table of the standard normal, we find that for $z=-1.5$ a
+6.68\% of the frequencies are smaller. 
+endanswer
+endquestion
+  
+question
+What is the approximate maximum duration of the 10\% of longest clases?
+. 122.56 minutes
+. 132.56 minutes
+. 142.56 minutes
+. 92.56 minutes
+: None of the above options is correct. 
+answer
+The corresponding standard $z$ is 1.28, so we recover $X$:
+
+\[ 120 + 1.28 \cdot 2 = 122.56\]
+endanswer
+endquestion
+
+question
+What is the approximate percentage of classes that last between
+116 and 120 minutes?
+. 47.5 \%
+. 24 \%
+. 36 \%
+. 16 \%
+: None of the above options is correct. 
+answer
+2.5\% are shorter than 116 minutes, and 50\% are larger than 120 minutes 
+(since it is the mean and by symmetry also the median), therefore:
+
+\[ 100 - 50 - 2.5 = 47.5\]
+endanswer
+endquestion
+
+question
+What is the approximate duration of a class with standardized duration 
+equal to 1?
+. 122 minutes
+. 132 minutes
+. 112 minutes
+. 142 minutes
+: None of the above options is correct. 
+answer
+Since it is one standard deviation above the mean (mean = 0 , standard 
+deviation = 1), we get:
+
+\[ 120 + 2 = 122 \]
+endanswer
+endquestion
+endblock
+

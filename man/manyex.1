@@ -1,0 +1,42 @@
+.TH manyex 1
+.SH NAME
+.PP
+manyex \- A program to create multiple latex or web exams
+.SH SYNOPSIS
+.PP
+.B 
+manyex
+[-nwaostkh] -f test-description-file
+.SH DESCRIPTION
+.PP
+Manyex is a program to create tests or exams from a database of
+questions. Read the manual for further instructions.
+.SH OPTIONS
+.PP
+.IP "-n --normal"
+Normal mode, create a single latex file with the exam questions and the same 
+file with answers. 
+.IP "-w --webform"
+Web form mode, create multiple latex files with web form commands to
+be processed by Tth (http://hutchinson.belmont.ma.us/tth/).
+.IP "-a --normal-answer"
+Create only normal LaTeX answer.
+.IP "-o --formanswer"
+Create only web form answer.
+.IP "-s --supress-answer"
+Supress LaTeX answer (with -n).
+.IP "-t --suppress-webanswer"
+Supress web answer (with -w).
+.IP "-k --supress-key"
+Supress answer key.
+.IP "-f --file 'test description file'"
+Specify test description file (required).
+.IP "-h --help"
+Print usage and exit.
+.SH "SEE ALSO"
+.PP
+Inspired in Mihalis Kolountzakis much program: http://mk.eigen-space.org/much/
+Introduce Mihailis web page here.
+.SH BUGS
+https://sourceforge.net/p/exams-manyex/bugs/
+

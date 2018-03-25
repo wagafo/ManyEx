@@ -1,0 +1,10 @@
+block
+question
+How many different quadruples can one form from the objects
+1, 1, 2, 3, 4, 5, 6, 7, 8, 9.
+(Two quadruples differing only in order are not considered different.)
+. ${8 \choose 4}+{8 \choose 3}+{8 \choose 2}$
+. $10\cdot9\cdot8\cdot7$
+: The previous two answers are incorrect
+endquestion
+endblock

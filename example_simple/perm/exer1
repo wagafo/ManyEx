@@ -1,0 +1,12 @@
+block
+question
+How many circular orderings of the numbers $0,1,\ldots,10$ are there?
+(Two circular orderings which differ only by a rotation are not considered different.)
+. $10!$
+. $11!$
+. $9!$
+. $3^{11}$
+: None of the above answers is correct
+endquestion
+endblock
+

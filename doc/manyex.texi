@@ -1,0 +1,3752 @@
+\input texinfo @c -*-manyex-*-
+@c %**start of header
+@setfilename manyex.info
+@set UPDATED Jun 15, 2010
+@set VERSION 0.5
+@settitle Manyex Manual @value{VERSION}
+@c %**end of header
+
+@copying
+This is the Manual for the Manyex exam preparation systam
+ (version @value{VERSION}, @value{UPDATED}),
+     
+Copyright @copyright{} 2006-2010 Walter García-Fontes
+
+@quotation
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.1 or
+any later version published by the Free Software Foundation; with no
+Invariant Sections, with the Front-Cover Texts being ``A GNU Manual,''
+and with the Back-Cover Texts as in (a) below.  
+@c A copy of the
+@c license is included in the section entitled ``GNU Free Documentation
+@c License.''
+
+(a) The FSF's Back-Cover Text is: ``You have freedom to copy and modify
+this GNU Manual, like GNU software.  Copies published by the Free
+Software Foundation raise funds for GNU development.''
+@end quotation
+@end copying
+
+@titlepage
+@title Manyex Manual V. 0.01
+    
+@c The following two commands start the copyright page.
+@c @vskip 0pt plus 1filll
+@c @page
+
+@insertcopying
+@end titlepage
+     
+@c Output the table of contents at the beginning.
+@contents
+
+
+
+@direntry
+* Manyex Exam Preparation Tools: (manyex).
+                                                  [MISSING TEXT]
+@end direntry
+
+@ifnottex
+@node Top, Introduction, , ,
+@top Manyex 
+
+@insertcopying
+@end ifnottex
+
+Manyex is a tool for preparing exams and tests from 
+a database of exercises with questions. It creates the
+exams in LaTeX so that you can process them with the 
+Tex/Latex system. 
+
+To operate Manyex, you need a working TeX/LaTeX installation 
+and a basic knowledge of this system.
+
+In this version of Manyex, web form exams are prepared to work 
+with @code{tth} (@url{//hutchinson.belmont.ma.us/tth/}). 
+
+Manyex selects randomly the exercises and permutes the questions, 
+so that you can generate different exams from the same database 
+of questions. 
+
+It provides several formats:
+
+-- Normal Latex exams, to print and distribute among the students.
+
+-- Web Form exams, these are written as separate files for each
+exam, also in LaTeX, but to be processed by 
+@code{tth}  (@url{http://hutchinson.belmont.ma.us/tth/}), 
+a free tool to convert from 
+LaTeX to html. 
+
+-- Answer files, both in normal format and in web format.
+
+-- Answer key file, just each exams with the correct answers if 
+multiplechoice or true/false. 
+
+
+@menu
+* Introduction::
+* The exercise database::
+* The test description file::
+* Exercise structure::
+* LaTeX normal exam creation::
+* LaTeX web form creation::
+* The creation of answers::
+* A complete example::
+* Index::
+
+@detailmenu
+â\200\224 The Detailed Node Listing â\200\224
+
+Introduction
+
+* History of Manyex::
+* What does Manyex do?::
+* Brief overview of Manyex capabilities::
+
+The exercise database
+
+* Concept of Manyex::
+* Structure and conventions of the database::
+
+The test description file
+
+* Use of the test description::
+* Keywords and options::
+
+
+Exercise structure
+
+* Commands to define exercises::
+
+LaTeX normal exam creation
+
+* LaTeX Master file for normal::
+* LaTeX macros for normal::
+* Exam processing::
+
+LaTeX web form creation
+
+* LaTeX Master file for normal::
+* LaTeX macros for web::
+* The web form::
+* Use of tth::
+
+The creation of answers
+
+* Short key answers::
+* Normal LaTeX answers::
+* Web form answers::
+
+A complete example
+
+* The database of exercises::
+* LaTeX Master file::
+* The test description file::
+* Created LaTeX exams::
+* Created web form exams::
+
+@end detailmenu
+@end menu
+
+@node Introduction, The exercise database, Top, Top
+@chapter Introduction
+
+@menu
+* History of Manyex::
+* What does Manyex do?::
+* Brief overview of Manyex capabilities::
+@end menu
+
+@node History of Manyex, What does Manyex do?, Introduction, Introduction
+@section History of Manyex
+
+If you ever had to teach a course where a lot of tests had to be 
+administered, you will agree that it is useful to have a way of 
+creating tests in an automatic way so that
+the instructor can dedicate his or her time 
+in thinking the questions and the answers and minimizing 
+the time spent in formatting the tests. 
+
+If furthermore you have to create a lot of permutations of tests (sometimes
+the same test) to minimize cheating, which sometimes is unavoidable if
+the tets have to be administered in a packed room where students have 
+no chance but seeing what their neighbours are writing, 
+the formatting demands increase a lot
+and the chance of introducing mistakes in the questions is exacerbated. 
+
+Commercial applications to create tests are quite expensive, sometimes 
+licensed based on the number of students taking the test. But public
+domain tools to format tests abund, including some very nice LaTeX styles,
+so it is surprising that something like Manyex has not be developed before.
+
+One of the first open source contributions is @code{much}
+(@url{http://fourier.math.uoc.gr/~mk/much/}) developed by Mihalis Kolountzakis.
+Manyex extends the capabilities of @code{much}, including exercices of 
+a much complex structure, for instance with different questions that can
+be set up to be permuted or not, and including also the capability to
+create html forms, that is tests to be administered throught the web. 
+It does not include, as @code{much} does, the possibility of grading 
+a file where the instructor has coded the answers of the students.
+Students can be asked to fill a form that can be later scanned mechanically
+for the answers, but this facility is not included in Manyex. Web tests 
+can be graded more directly, since they 
+can generate a file with the answers that can be later graded by any
+appropiate application. Manyex also includes the possibility of generating 
+nicely formatted answers to the tests. Problem sets for homeworks or 
+quizzes can
+be also created from the same database of questions. 
+
+@menu
+* Where does Manyex come from?::
+* What does Manyex mean?::
+@end menu
+@node Where does Manyex come from?, What does Manyex mean?, History of Manyex, History of Manyex
+@subsection Where does Manyex come from?
+
+If you ever had to prepare multiple permutations of tests to distribute in a 
+large class and you had to prepare the permutations by hand, you will agree 
+with me that it is a really tedious task and that it is really hard to
+do it without introducing some mistakes in the questions. 
+ I have to administer mid-term
+tests for students sitting next to each other in such a close way that 
+it is in fact impossible not to see what your neighbours are doing, even 
+if you try to be honest and avoid looking at the neighbouring papers. On the
+other hand I also administer very short quizzes (10 minutes) to be done
+at the end of a practice sessions in a computer room. For this I also had to 
+create a lot of different versions of the same exam in forms that can be
+published through the web. 
+
+Given the frequent nature of these tests, it is almost unavoidable to prepare
+them in the multiple choice format, otherwise there would be a need of a 
+lot of time dedicated to grading. In my case, I use mechanical grading by
+having the students enter a form and having a machine scan the form and
+grade the answers. In the case of the web form exams, the responses are
+saved in a file by a cgi script, and  grading is done 
+ by another application (in my case I 
+use a statistical package to process the data and compute the grades).
+
+For the final exam, I also like to
+hand in other types of questions where students can write and be evaluated 
+based not only on their final result but also on their intermediate results 
+and methods used to solve the stated problem or case. For the final exam I
+use then a combination of multiple choice questions and short answer 
+questions. I teach technical subjects such as statistics, but of course
+this type of exams can be used by any subject. In the case of technical 
+subjects it is nice to interact with TeX/LaTeX. 
+
+So I thought that it would be a big contribution to have an automatic 
+system to prepare this type of exams, so that the instructor could 
+concentrate in thinking about useful exercises and questions, and not 
+dedicate most of his or her time in formatting the papers. I looked around
+to see if there was any software that could do this, and I found 
+some commercial options. 
+
+The only free system that I found was the Much system. 
+Manyex was inspired, and used as its initial code, by Much 
+@url{http://fourier.math.uoc.gr/~mk/much/}) developed by Mihalis Kolountzakis.
+This is a simpler system, where only multiple choice questions are allowed
+and the idea is to prepare a lot of permutations of the same tests, enter
+the responses in a file and have the program grade it for you.
+Manyex inherites its basic structure, but it extends the capabilities 
+introducing much more structure in the questions, allowing for the 
+construction of more complex exercises composed by different questions,
+but taking the grading completely out of the system.
+
+Some of the ideas of Manyex were also inspired by the LaTeX package 
+@file{examdesign.sty} which I used originally to prepare my exams.
+
+
+@node What does Manyex mean?,  , Where does Manyex come from?, History of Manyex
+@subsection What does Manyex mean?
+
+Manyex means ``many exams'' but is also a tribute to my preferred 
+Football Club, Peñarol F.C., from Montevideo, Uruguay, since one of 
+its nicknames is ``manya'', which comes from the Italian ``mangiare'' (to
+eat) and was a nickname coined around 1915 as an insult (we cannot reproduce
+what was supposed to be eaten) but later adopted as a neutral nickname. 
+
+
+@node What does Manyex do?, Brief overview of Manyex capabilities, History of Manyex, Introduction
+@section What does Manyex do?
+
+The main idea of Manyex is that you have different exercices, composed by
+blocks of one or more questions. Sometimes these questions can be permuted
+without affecting the meaning of the exercises. The questions can be 
+of different type: multiple choice, short answer or true/false. For the 
+multiple choice questions the multiple options can be also permuted. 
+Futhermore the exercises can be also permuted if you have a database of 
+similar exercises. 
+
+@node Brief overview of Manyex capabilities,  , What does Manyex do?, Introduction
+@section Brief overview of Manyex capabilities
+
+Before going into a detailed description of Manyex characteristics and 
+functioning, it is useful to present a simple example.
+
+Suppose you want to create a simple quizz of just two questions for a
+mathematics exam, one on combinations and the other one on
+permutations. You want to have two different exams. Manyex allows you
+create these two exams from a database of exercises. In this case each
+exercise consists only of one question, but later we will see that
+exercise can be more complex. 
+
+The database of exercises consists of a base directory and subdirectories
+containing the different types of questions. In this simple case, the
+base directory has two subdirectories, each one containing three
+exercises (with just one question each). 
+
+Directory one is called @file{comb} and contains three files: @file{exer1},
+@file{exer2} and @file{exer3}. By default manyex will consider files
+starting with the prefix ``exer'' as exercise files. The prefix can be
+changed. The text for the questions will be processed through LaTeX, so
+it can contain TeX commands and formattin. 
+
+File @file{exer1} contains:
+@verbatim
+block
+question
+The binomial coefficient ${n \choose k}$ equals
+. ${n \choose n-k}$.
+. $0$ if $k=0$.
+: The previous two answers are incorrect.
+endquestion
+endblock
+@end verbatim
+
+This is the definition of an exercise, using a sytax which is going to
+be explained later. Blocks are composed by questions and have a given
+``type'', in this case it is a multiplechoice question, which is the
+default. The question itself is enclosed between @code{question} and
+@code{endquestion}, and it is composed by a statement (``The binomial
+coefficient @code{$@{n \choose k@}$} equals'') and the different possible answers
+(otpions). The first option is the correct one (this can be changed if
+for instance the last option, ``The previous two answers are
+incorrect'', turns out to be the correct one). The semicollon (:) in the
+last option means that this option is not going to be permuted,
+otherwise the wording of the question would make no sense. 
+
+Similarly, @file{exer2} contains:
+@verbatim
+block
+question
+In how many ways can we choose $n$ objects from $k$ different objects,
+if the order of choice does not matter?
+. ${k(k-1)\cdots(k-n+1) \over n\cdot(n-1)\cdots2\cdot 1}$
+. ${n(n-1)\cdots(n-k+1) \over k\cdot(k-1)\cdots2\cdot 1}$
+endquestion
+endblock
+@end verbatim
+
+And finally @file{exer3} contains:
+@verbatim
+block
+question
+How many different quadruples can one form from the objects
+1, 1, 2, 3, 4, 5, 6, 7, 8, 9.
+(Two quadruples differing only in order are not considered different.)
+. ${8 \choose 4}+{8 \choose 3}+{8 \choose 2}$
+. $10\cdot9\cdot8\cdot7$
+: The previous two answers are incorrect
+endquestion
+endblock
+@end verbatim
+
+The other directory, @file{perm}, contains three other exercises with
+single questions, which are listed next:
+
+@file{exer1}
+@verbatim
+block
+question
+How many circular orderings of the numbers $0,1,\ldots,10$ are there?
+(Two circular orderings which differ only by a rotation are not considered different.)
+. $10!$
+. $11!$
+. $9!$
+. $3^{11}$
+: None of the above answers is correct
+endquestion
+endblock
+@end verbatim
+
+@file{exer2}
+@verbatim
+block
+question
+In how many ways can we choose 4 numbers from the set $\{1,\ldots,10\}$ if
+the order in which we choose them matters?
+. $\frac{10!}{6!}$
+. $10^4$
+. $6!$
+. $\frac{10!}{6!4!}$
+: None of the above answers is correct
+endquestion
+endblock
+@end verbatim
+
+@file{exer3}
+@verbatim
+block
+question
+In how many ways can the numbers $0, 1, \ldots, 10$ be put in order?
+. $11!$
+. $10!$
+. $10\times 10$
+. $2^{10}$
+: None of the above answers is correct.
+endquestion
+endblock
+@end verbatim
+
+
+To create the two exams a ``test description file'' has to be defined,
+together with a ``LaTeX master file'' where we will define the
+formatting of the exams. 
+
+The name of the ``test description file'' is free, for instance
+@file{desc-test}, and will contain instructions to create tests. In this
+simple case we have included the following instructions:
+
+@verbatim
+# test description file
+seed 12345
+exercise
+use 2 from "comb"
+use 2 from "perm"
+endexercise
+create 2
+@end verbatim
+
+The first line, starting with @code{#}, is a comment. The second line
+specifies the seed for the random number generator that is used to
+permute the exercises, the questions and the options within in
+multiplechoice questions, except those options that are specified to be
+fixed with @code{:}. The @code{exercise} instruction starts a group of
+exercises which are single questions, and therefore they will be indexed
+only on the question level, and will not be indexed as exercises with
+subindices corresponding to questions. Exactly what this means it will
+be understood later when more complex exercises are shown. The
+@code{use} instructions will specify how many exercises of each type to
+use, in this case two exercises from @file{comb} and two from
+@file{perm}. The instruction @code{endexercise} closes the question
+numbering (if other exercises were given after this instruction, they
+would start to be numbered as exercises with subnumbering of questions
+within each exercise). The @code{exercise} / @code{endexercise} group is
+useful for exercises with just one question. The instruction
+@code{create 2} tells manyex to create 2 exams from the database of
+exercises. 
+
+The other file that has to be created is a simple LaTeX style where a
+series of macros are defined. These macros are written by manyex in the
+output file, and define the headers and footers for exercises and
+questions. By default this file is called @file{master.sty}, but the
+name can be speficied in the test description file. The file will be
+included in the LaTeX file being created by manyex, since a line with
+@code{include} command is written by the program. 
+
+The @file{master.sty} in this example is the following:
+@verbatim
+\newcommand{\mnglobalheader}{}
+\newcommand{\mnpaperheader}{
+
+{\bf\Large Final Exam}
+
+{\bf\Large Exam type: \mnserialnumber}
+
+\bigskip
+
+}
+
+\newcommand{\mnpaperfooter}{}
+
+\newcommand{\mnexerciseheader}{}
+
+\newcommand{\mnexercisestartheader}{}
+
+
+\newcommand{\mnexercisefooter}{}
+
+\newcounter{question}\setcounter{question}{1}
+
+
+\newcommand{\mnquestionheader}{{\noindent \bf Question \arabic{question}: 
+\addtocounter{question}{1}}}
+
+
+\newcommand{\mnquestionfooter}{}
+@end verbatim
+
+This file has to define a series of macros that manyex writes in the
+latex file. These are used to format the exam. It can also use some
+macros that manyex writes (for instance @code{\def\mnquestionnumber@{1@}})
+to number exercises and questions. In this case the numbering of the
+questions is defined in the master file itself, since each exercise has
+only one question and if we used manyex standard numbering procedure all
+questions would be number 1 (if we write @code{\mnquestionnumber} in
+@code{\def\mnquestionheader@{@}}, it would be always resolved to 1). 
+
+To create the actual exams, manyex has to be run from the base
+directory. If the base directory is specified in the test description
+file, manyex can be run from anywhere, but it will always create the
+exams in the directory from where it is being run. 
+
+The command to create ``normal LaTeX exams'' is:
+@code{manyex -n -f desc-test}
+
+This will create a file called by default @file{exam.tex} where the
+actual exams are written. The output file name can also be changed from
+the test description file. The file in this case will look as follows:
+
+@verbatim
+\documentclass[12pt,a4paper]{article}
+\usepackage{master}
+\pagestyle{empty}
+\begin{document}
+\mnglobalheader
+\def\mnserialnumber{1}
+\mnpaperheader
+\mnexercisestartheader
+\smallskip
+
+\def\mnquestionnumber{1}
+\mnquestionheader The binomial coefficient ${n \choose k}$ equals
+\begin{itemize}
+\item[(A)] $0$ if $k=0$.
+\item[(B)] ${n \choose n-k}$.
+\item[(C)] The previous two answers are incorrect.
+\end{itemize}
+\mnquestionfooter
+
+\smallskip
+
+\def\mnquestionnumber{1}
+\mnquestionheader How many different quadruples can one form from the objects
+1, 1, 2, 3, 4, 5, 6, 7, 8, 9.
+(Two quadruples differing only in order are not considered different.)
+\begin{itemize}
+\item[(A)] $10\cdot9\cdot8\cdot7$
+\item[(B)] ${8 \choose 4}+{8 \choose 3}+{8 \choose 2}$
+\item[(C)] The previous two answers are incorrect
+\end{itemize}
+\mnquestionfooter
+
+\smallskip
+
+\def\mnquestionnumber{1}
+\mnquestionheader How many circular orderings of the numbers $0,1,\ldots,10$ are there?
+(Two circular orderings which differ only by a rotation are not considered different.)
+\begin{itemize}
+\item[(A)] $9!$
+\item[(B)] $3^{11}$
+\item[(C)] $11!$
+\item[(D)] $10!$
+\item[(E)] None of the above answers is correct
+\end{itemize}
+\mnquestionfooter
+
+\smallskip
+@end verbatim
+
+
+@verbatim
+\def\mnquestionnumber{1}
+\mnquestionheader In how many ways can we choose 4 numbers from the set $\{1,\ldots,10\}$ if
+the order in which we choose them matters?
+\begin{itemize}
+\item[(A)] $10^4$
+\item[(B)] $6!$
+\item[(C)] $\frac{10!}{6!}$
+\item[(D)] $\frac{10!}{6!4!}$
+\item[(E)] None of the above answers is correct
+\end{itemize}
+\mnquestionfooter
+
+\mnpaperfooter
+\pagebreak
+
+\def\mnserialnumber{2}
+\mnpaperheader
+\mnexercisestartheader
+\smallskip
+
+\def\mnquestionnumber{1}
+\mnquestionheader In how many ways can we choose $n$ objects from $k$ different objects,
+if the order of choice does not matter?
+\begin{itemize}
+\item[(A)] ${k(k-1)\cdots(k-n+1) \over n\cdot(n-1)\cdots2\cdot 1}$
+\item[(B)] ${n(n-1)\cdots(n-k+1) \over k\cdot(k-1)\cdots2\cdot 1}$
+\end{itemize}
+\mnquestionfooter
+
+\smallskip
+
+\def\mnquestionnumber{1}
+\mnquestionheader The binomial coefficient ${n \choose k}$ equals
+\begin{itemize}
+\item[(A)] $0$ if $k=0$.
+\item[(B)] ${n \choose n-k}$.
+\item[(C)] The previous two answers are incorrect.
+\end{itemize}
+\mnquestionfooter
+
+\smallskip
+
+\def\mnquestionnumber{1}
+\mnquestionheader How many circular orderings of the numbers $0,1,\ldots,10$ are there?
+(Two circular orderings which differ only by a rotation are not considered different.)
+\begin{itemize}
+\item[(A)] $3^{11}$
+\item[(B)] $11!$
+\item[(C)] $9!$
+\item[(D)] $10!$
+\item[(E)] None of the above answers is correct
+\end{itemize}
+\mnquestionfooter
+
+\smallskip
+
+\def\mnquestionnumber{1}
+\mnquestionheader In how many ways can the numbers $0, 1, \ldots, 10$ be put in order?
+\begin{itemize}
+\item[(A)] $2^{10}$
+\item[(B)] $11!$
+\item[(C)] $10\times 10$
+\item[(D)] $10!$
+\item[(E)] None of the above answers is correct.
+\end{itemize}
+\mnquestionfooter
+
+\mnpaperfooter
+\pagebreak
+
+\end{document}
+@end verbatim
+
+
+Manyex also writes a file with the answer key for the two exams. Each
+line of this file contains the exam number and the correct answers for
+each question. The file is called @file{mn-correct}, and in this case it
+contains: 
+@verbatim
+001BBDC
+002ABDB
+@end verbatim
+
+This file can be used to correct the exams. Manyex also creates an
+answer LaTeX file to distribute the correct answers, which by default is
+called @file{answer.tex}, which we do not show in this simple
+example. It can also create a LaTeX file to be converted into html code
+with the program tth, to be published in the web as a form. We will
+present a full example at the end of this manual. 
+
+
+@node The exercise database, The test description file, Introduction, Top
+@chapter The exercise database
+
+@menu
+* Concept of Manyex::
+* Structure and conventions of the database::
+@end menu
+
+@node Concept of Manyex, Structure and conventions of the database, The exercise database, The exercise database
+@section Concept of Manyex
+
+@menu
+* exams::
+* exercises::
+* blocks::
+* questions::
+@end menu
+
+
+@node exams, exercises, Concept of Manyex, Concept of Manyex
+@subsection exams
+
+The idea of manyex is to prepare exams or test (obviously also quizzes or 
+problem sets). Each exam can be composed by one or more exercises of 
+different types or the same type (multiple choice, true/false or short 
+answers). The power of manyex comes though to prepare multiplechoice
+questions (or true/false) and permute them so that cheating can be minimized.
+Even if cheating is not a problem it can create different 
+exams fron a database so that they are randomly changed for one year to the
+other. 
+
+@node exercises, blocks, exams, Concept of Manyex
+@subsection exercises
+
+Exercises are composed by one or more blocks which can also be of different
+type, but usually they should be of the same type (multiple choice, true/false
+or short answer). The idea of having different blocks is to control the
+flow of the logic of the questions. If you allow everything to be permuted,
+then the exercise could make no sense, so with the blocks you can control 
+which questions go first and if there are some questions that can be permuted
+you can fix that block. 
+
+@node blocks, questions, exercises, Concept of Manyex
+@subsection blocks
+
+Blocks are composed by questions. Each block has a type (multiple choice, 
+true/false or short answer).A san be defined to have the questions
+permute or not. Options in the multiple choice question can be also fixed,
+but this is done in the options themselves. By default blocks are multiple 
+choice and rearranging is switched on.
+
+
+@node questions,  , blocks, Concept of Manyex
+@subsection questions
+
+The question have different structure depending of their type. Multiple choice
+questions have different options. True false questions have only one option,
+defined to be true or false. 
+
+@node Structure and conventions of the database,  , Concept of Manyex, The exercise database
+@section Structure and conventions of the database
+
+The database of questions starts from a base directory and is 
+organized in subdirectories. Each subdirectory contains single files each one 
+containing exercises. The names of the files are prefixed according to 
+what is specified in the exam configuration file (for instance they could
+also start with ``exer'' and be named ``exer1'', ``exer2'', etc. If 
+
+
+@node The test description file, Exercise structure, The exercise database, Top
+@chapter The test description file
+
+@menu
+* Use of the test description::
+* Keywords and options::
+@end menu
+
+@node Use of the test description, Keywords and options, The test description file, The test description file
+@section Use of the test description
+
+The test description file is used to configure manyex to produce the
+exams (type of exam, which exercises to introduce, how many exams,
+etc.). 
+
+The test description file can be named as you wish, and its name has to
+be provided to the manyex command line. For instance if you call your
+test description file @file{desc-test}, the comand line will be:
+
+@command{manyex -n -f desc-test}
+
+Each command is given in a separate line. Blank space and blank lines
+are note taken into account and comments can be introduced by starting a
+line with @command{#}. 
+
+@node Keywords and options, directory "string", Use of the test description, The test description file
+@section Keywords and options
+
+The exams are described and defined by the use of different keywords,
+that may take parameters and options. Parameters can be eithe strings
+defining names or refering to files or directories, which are denoted by
+``string'' or INTEGER, an integer number. Optional elements are
+surrounded by squared brackets. 
+
+This is the list of commands:
+
+@menu
+For all types of exams:
+* directory "string"::
+* documentclassoptions "string"::
+* usepackage "string"::
+* mastertex "string"::
+* examtex "string"::
+* answertex "string"::
+* exerprefix "string"::
+* seed INTEGER::
+* serial INTEGER::
+* use INTEGER from "string"::
+* create INTEGER::
+* exercise::
+* endexercise::
+
+Specific for web form exams:
+* pagetitle "string"::
+* formaction [solution] "string"::
+* inifield (name="string" label="string" type="string" size="string" [text="string"] [requirefield="string"])::
+* uncheck "string"::
+* textsubmit "string"::
+@end menu
+
+@node  directory "string", documentclassoptions "string", Keywords and options, Keywords and options
+@subsection directory "string"
+
+Optional.
+
+This command specifies the base directory for the database of
+questions. The questions are ordered by type in the subdirectories. If
+not specified the current directory is used. 
+
+@example
+directory ``\home\user\exams\database''
+@end example
+
+
+@node documentclassoptions "string", usepackage "string", directory "string", Keywords and options
+@subsection documentclassoptions "string"
+
+Required.
+
+This command specifies the basic options for the documentclass article
+in LaTeX. 
+
+@example
+documentclassoptions "12pt,a4paper"
+@end example
+
+
+@node usepackage "string", mastertex "string", documentclassoptions "string", Keywords and options
+@subsection usepackage "string"
+
+Optional.
+
+This commands specifies additional packages to be included in the LaTeX
+being created. 
+
+@example
+usepackage "iso-accents,epsf"
+@end example
+
+@node mastertex "string", examtex "string", usepackage "string", Keywords and options
+@subsection  mastertex "string"
+
+Optional.
+
+This commands specifies the name of the LaTeX master file with macro
+definitions. The default is to look for @file{master.sty}
+
+@example
+mastertex "macros"
+@end example
+
+
+@node examtex "string", answertex "string", mastertex "string", Keywords and options
+@subsection examtex "string"
+
+Optional.
+
+This command specifies the name of the LaTeX files being created with
+the exams. The default is to call them @file{exam.tex} for normal exams,
+and @file{exam1.tex}, @file{exam2.tex}, ... , for web form exams. 
+
+@example
+examtex ``final_december''
+@end example
+
+
+@node answertex "string", exerprefix "string", examtex "string", Keywords and options
+
+Optional.
+
+This command specifies the name of the LaTeX file where answers will be
+written. The default is to call it @file{answer.tex} for normal exams,
+and @file{answer1.tex}, @file{answer2.tex}, etc. for web form exams. 
+
+@node exerprefix "string", seed INTEGER, answertex "string", Keywords and options
+@subsection exerprefix "string"
+
+Optional.
+
+This command specifies the prefix of exercise files. This gives
+additional flexibility to choose between exercises within the
+database. The default is to look for files that start with @file{exer}. 
+
+@example
+exerprefix ``new_exer''
+@end example
+
+
+@node seed INTEGER, serial INTEGER, exerprefix "string", Keywords and options
+@subsection seed INTEGER
+
+Optional. 
+
+This commmand specifies the seed for the random number generator used by
+manyex to choose the exercises and to shuffle the questions and
+options for multiplechoice questions. The default is to use 1234, and 
+if you do not change it the same sequence of exams will be produced, unless
+you change the database of exercises. 
+
+@example
+seed 9283
+@end example
+
+@node serial INTEGER, use INTEGER from "string", seed INTEGER, Keywords and options
+@subsection serial INTEGER
+
+Optional.
+
+This command defines at which integer the numbering of the exams
+starts. The default is to start at 1. 
+
+@example
+serial 100
+@end example
+
+@node use INTEGER from "string", create INTEGER, serial INTEGER, Keywords and options
+@subsection use INTEGER from "string"[,''string'',...]
+
+Required.
+
+This command defines how mamy exercises and of which type to
+include. Manyex will choose INTEGER exercises from subdir ``string'' of
+the database. Multiple ``use'' commands can be given to include all the
+exercises needed in the database. More than one subdirectory of
+questions can be defined. 
+
+
+@example
+use 3 from ``normal1'', ``normal2''
+@end example
+
+This example will include 3 exercises in the exam chosen at random from
+all the exercises found in the subdirs ``normal1'' and
+``normal2''. There must be enough exercises of this type, othewise
+manyex gives an error. 
+
+
+@node create INTEGER, exercise, use INTEGER from "string", Keywords and options
+@subsection create INTEGER
+
+Required. 
+
+This commands defines how many exams to create.
+
+@example
+create 10
+@end example
+
+
+@node exercise, endexercise, create INTEGER, Keywords and options
+@subsection exercise
+
+This command eliminates the ``exercise'' heading. This is useful if you
+just inlude one question in your exam (otherwise you would get
+``exercise 1'' and then just ``question 1'') or to lump true/false
+questions together. 
+
+@example
+exercise
+use 10 from ``truefalse1''
+endexercise
+@end example
+where in ``truefalse'' just single true/false statements are found. 
+
+@node endexercise, pagetitle "string", exercise, Keywords and options
+@subsection endexercise
+
+This commands finishes the grouping of exercises started with
+``exercise''. 
+
+@node pagetitle "string", formaction [solution] "string", endexercise, Keywords and options
+@subsection pagetitle "string"
+
+This command defines the title for the HTML document being created. 
+
+@example
+pagetitle ``First test''
+@end example
+
+
+@node formaction [solution] "string", inifield (name="string" label="string" type="string" size="string" [text="string"] [requirefield="string"]), pagetitle "string", Keywords and options
+@subsection formaction [solution] "string"
+
+Required in web exams. 
+
+This command defines the header of the form commands in the HTML
+source. Optionally the correct solutions can be coded in the form and
+passed to the cgi script that will parse the form (if ``solution'' is
+written after ``formaction''). ``string'' specifies the location of the
+cgi-script (the ``action'' of the html form). 
+
+For instance:
+@example
+formaction "http://server.upf.edu/cgi-bin/test.cgi"
+@end example
+
+will provoke the inclusion of the following line in the latex source
+being created:
+
+@verbatim
+%%tth:\begin{html}<FORM action="http://server.upf.edu/cgi-bin/test.cgi?perm=0" method="post">\end{html}
+@end verbatim
+
+Instead if the ``solution'' option is given:
+@example
+formaction solution "http://server.upf.edu/cgi-bin/test.cgi"
+@end example
+
+The solutions (in case of multiplechoice exams) will be also send to the
+cgi script:
+
+@verbatim
+%%tth:\begin{html}<FORM action="http://puna.upf.edu/cgi-bin/test.cgi?perm=0&c0=A&c1=B&c2=B&c3=B" method="post">\end{html}
+@end verbatim
+
+This is useful to give immediate feedback to the web exam takers. 
+
+@node inifield (name="string" label="string" type="string" size="string" [text="string"] [requirefield="string"]), uncheck "string", formaction [solution] "string", Keywords and options
+@subsection inifield (name="string" label="string" type="string" size="string" [text="string"] [requirefield="string"])
+
+This command is used to define the fields in the form for entering the
+name and other information of the exam taker. The option ``text'' is
+optional and is used to include a short text before the field to give,
+for instance, instructions on how to fill it. The option
+``requirefield'' is also optional and it is used to make the field
+required and give a javascript alert if the submit button is pressed
+without having filled this field.
+
+@example
+inifield ( name="email" label="EMAIL: " type="text" size="20" 
+  text="Please enter your email:" requirefield="You have to enter your email")
+@end example
+
+will introduce the following lines in your latex source:
+
+@verbatim
+Please enter your email:
+%%tth:\begin{html}    <P>\end{html}
+%%tth:\begin{html}    <LABEL for="email">EMAIL: </LABEL>\end{html}
+%%tth:\begin{html} <INPUT type="text" name="email" size=10><BR>\end{html}
+@end verbatim
+
+and a script to make the field required:
+
+@verbatim
+%%tth:\begin{html} <script type="text/javascript"> \end{html}%%tth:\begin{html} window.onload=function(){var elForm=document.getElementsByTagName('form')[0]; elForm.onsubmit=function() {  var required=['email'];  var textreq=['You have to enter your email']; var bool=true;  for(var i=0;i<required.length;i++)  {  if(document.getElementsByName(required[i])[0].value=='') { alert(textreq[i]);  bool=false; } }  return bool;  }  } \end{html}
+%%tth:\begin{html} </script> \end{html}
+@end verbatim
+
+@node uncheck "string", textsubmit "string", inifield (name="string" label="string" type="string" size="string" [text="string"] [requirefield="string"]), Keywords and options
+@subsection uncheck "string"
+
+Optional
+
+Provides a text for the unchek button in multiplechoice webform
+questions. The default is "Uncheck". 
+
+@example
+uncheck "Clean"
+@end example
+
+@node textsubmit "string",  , uncheck "string", Keywords and options
+
+@subsection textsubmit "string"
+
+Required.
+
+It introduces a short text for the submit button. 
+
+@example
+textsubmit "I finished!"
+@end example
+
+
+@node Exercise structure, LaTeX normal exam creation, The test description file, Top
+@chapter Exercise structure
+
+Exercises are composed by blocks which can contain different
+questions. The main struture of a an exercise file is then:
+
+block1 - question 1
+         question 2
+         ...
+         question k1
+block2 - question 1
+         question 2
+         ...
+         question k2
+...
+blockn - question 1
+         question 2
+         ...
+         question kn
+
+This is constructed by using statements that define the differents parts
+and options of the exercise. Every exercise has to start with
+@code{block} and end with @code{endblock}. The statement of the exercise
+is enclosed between @code{statement} and @code{endstatement}. 
+Every question has to start
+with @code{question} and end with @code{endquestion}. Answers to
+questions can be optionally provided enclosing the answer between
+@code{answer} and @code{endanswer}. Blank lines and spaces are ignored
+except when they are in statement of exercises or questions. Any line
+that starts with @code{#} is considered a comment. 
+
+@menu
+* Commands to define exercises::
+@end menu
+
+
+@node Commands to define exercises,  , Exercise structure, Exercise structure
+@section Commands to define exercises
+
+
+These are the main instructions that can be used in an exercise
+
+@menu
+* title::
+* auxiliar::
+* webfile::
+* block::
+* endblock::
+* statement::
+* endstatement::
+* question::
+* . ::
+* : ::
+* ; ::
+* endquestion::
+* answer::
+* endanswer::
+@end menu
+
+
+
+@node title, auxiliar, Commands to define exercises, Commands to define exercises
+@subsection title ``string'' 
+
+This command is used to specify a general title for the exercise. It
+will be written on top of the exercise when it is included in the LaTeX
+output. The title has to be enclosed in quotes. 
+
+@strong{Example of title}
+
+@example
+title ``Rainfall in Catalonia''
+@end example
+
+@node auxiliar, webfile, title, Commands to define exercises
+@subsection auxiliar ``file1'',``file2'', ... , ``filek''::
+
+This command is used to specify auxiliary files (usually graphics to be
+included in the LaTeX document), so that manyex copies the files to the
+directory where the LaTeX file is being created so that it is found when
+the LaTeX file is processed. One or more files can be specified,
+separated by commas. The files have to be present in the exercise
+database, in the same subdirectory where the exercise specifying them is
+located. The files will not be copied if a web form exam is being
+created. 
+
+@strong{Example of auxiliar}
+
+@example
+auxiliar ``graph1.eps'',``graph2.eps''
+@end example
+
+
+@node webfile, block, auxiliar, Commands to define exercises
+@subsection webfile ``file1'',``file2'', ... , ``filek''::
+
+This command is similar to auxiliar, but the files are included only
+when a web form is being created. They will not be copied if a LaTeX
+normal exam is being created. 
+
+@strong{Example of webfile}
+
+@example
+webfile ``graph1.eps'',``graph2.eps''
+@end example
+
+@node block, endblock, webfile, Commands to define exercises
+@subsection block [(type=[multiplechoice|shortanswer|trufalse] rearrange=[yes|no])]
+
+All exercises are composed by at least one block/endblock unit. Blocks
+are by default composed by multiplechoice questions and options are
+rearranged. Options are given inside brackets right after @code{block}.
+Using the @code{type} option the block can be declared (this
+is needed if the block is shortanswer or true/false, and can be
+optionally specified for multiplechoice). 
+The format is @code{type=[multiplechoice|shortanswer|truefalse]}. 
+With the @code{rearrange}
+option questions within the block will be rearrraged at random or
+not. The format is @code{rearrange=[yes|no]}.
+
+@strong{Example of blocks}
+
+@example
+@verbatim
+block
+question
+The binomial coefficient ${n \choose k}$ equals
+. ${n \choose n-k}$.
+. $0$ if $k=0$.
+: The previous two answers are incorrect.
+endquestion
+endblock
+@end verbatim
+@end example
+
+This is equivalent to:
+
+@example
+@verbatim
+block (type=multiplechoice rearrange=yes)
+question
+The binomial coefficient ${n \choose k}$ equals
+. ${n \choose n-k}$.
+. $0$ if $k=0$.
+: The previous two answers are incorrect.
+endquestion
+endblock
+@end verbatim
+@end example
+
+
+@node endblock, statement, block, Commands to define exercises
+@subsection endblock
+
+This is the command used to close a block of questions. 
+
+@node statement, endstatement, endblock, Commands to define exercises
+@subsection statement
+
+This is the command used to start the statement for the exercise. Only
+one statement has to be included for each block. This is useful if you
+want to change some assumptions and then ask another set of
+questions. Whatever is inside statament/endstatement is passed verbatim
+to the LaTeX file. 
+
+@strong{Example of statement}
+
+This is an exercise on the normal distribution:
+
+@example
+title ``Basics of the normal distribution''
+block
+statement
+For a normal distribution with mean $\mu$ and standard deviation
+$\sigma$, answer the following questions:
+question
+The distribution is 
+. symmetric
+. skewed
+. bimodal
+. uniform
+: None of the above
+endquestion
+endblock
+block
+statement
+For the normal distribution with $\mu=0$ and $\sigma=1$
+endstatement
+question
+The median is equal to
+. 0
+. 1
+. -1
+. 0.1
+. None of the above
+endquestion
+endblock
+@end example
+
+
+@node endstatement, question, statement, Commands to define exercises
+@subsection endstatement
+
+This commadn is used to close the statement of an exercise and return to
+normal mode (whatever is inside of the statement will be output verbatim
+to the LaTeX file). 
+
+@node question, ., endstatement, Commands to define exercises
+@subsection question
+
+This is the command to start a question. Questions can have different
+structures depending on which type of question is being created. 
+
+Multiplechoice questions: This are formed by an optional statement (but
+it is good to always have one, otherwise the question is just some
+options but the reader does not know what he/she has to do, at least it
+should state ``choose one among the following''), followed by the
+options. Options start with a dot @code{(.)} and can span multiple
+lines. The correct option has to be put in the first line (this will be
+used to format the answers). If this is
+not possible because of the logic of the question (for instance if
+``None of the above'' is the correct one), then the semicollon (;) can
+be used. This will tell manyex that this is the correct option, and will
+fix this option (it will not be rearranged at random, if it could be
+rearranged then it should be put as the first option). If the option has
+to be fixed, but it is not the correct one, the collon can be used
+(:). This is useful to include a last ``catch-all'' option (``None of
+the above'', for instance). 
+
+@strong{Example of multiplechoice question question}
+
+In the following example all options will be rearranged if the question
+is used in different exams, except the last one. The correct answer is
+1. 
+
+@example
+question
+Choose the correct answer
+. 1
+. 2
+. 3
+. 4
+: None of the above
+endquestion
+@end example
+
+In the next example all the options will be rerrranged across exams,
+except the last one, which is also the correct one:
+
+@example
+question
+Choose the correct answer
+. 1
+. 2
+. 3
+. 4
+: None of the above
+endquestion
+@end example
+
+Shortanswer questions: these are questions where students have to give a
+short written answer. Random rearranging is not as useful as with
+multiplechoice questions, but some exams may include a couple of these
+questions. The format is simpler then for multiplechoice questions since
+there are no options. Only the statement of the question has to be
+included. 
+
+@strong{Example of shortanswer question}
+
+@example
+question
+State the main properties of the normal distribution
+endquestion
+@end example
+
+Truefalse questions: These are questions where the answer has to
+specify if the statement is true or false [Extend this to allow for a
+space to justify the answer]. These questions are composed by an
+optional statement and just one option. If it starts with a dot (.) it
+is true, and if it starts with a collon (:) it is false (this will be
+used to format the answers). 
+
+@strong{Example of truefalse question}
+
+@example
+question
+. The normal distribution is symmetric.
+endquestion
+@end example
+
+@node ., :, question, Commands to define exercises
+@subsection . (option in multiplechoice or true)
+
+The dot (.) is used to specify the options in a multiplechoice answer,
+or the correct answer in a truefalse answer. 
+
+@node :, ;, ., Commands to define exercises
+@subsection : (fixed option in multiplechoise or true)
+
+The collon (:) is used to fix an option in a multiplechoice question, so
+that it is not rearranged (for instance if a last catch-all option has
+to be included, such as ``None of the above''). 
+
+@node ;, endquestion, :, Commands to define exercises
+@subsection ; (correct answer in multiplechoice when not in first option)
+
+The semicollon (;) is used to tell manyex that an option not in the
+first place is the correct answer, and it is also a fixed option (for
+instance if the last option is ``None of the above'' and it happens that
+this is the correct option). 
+
+@node endquestion, answer, ;, Commands to define exercises
+@subsection endquestion
+
+The command @code{endquestion} closes a question. 
+
+@node answer, endanswer, endquestion, Commands to define exercises
+@subsection answer
+
+The command @code{answer} starts an answer statement for a question. It
+has to be included within the question (right after the options in
+multiplechoice or truefalse, and after the statement in the shortanswer
+question). Whatever found between @code{answer} and @code{endanswer} is
+passed verbatim to the LaTeX answer file or the web form answer file. 
+
+@strong{Example of answer statement}
+
+@example
+question
+Choose the correct answer
+. 1
+. 2
+. 3
+. 4
+: None of the above
+answer
+The correct answer is 1 because it is the first one
+endasnwer
+endquestion
+@end example
+
+
+@node endanswer,  , answer, Commands to define exercises
+@subsection endanswer
+
+This is used to close the answer statement
+
+@node LaTeX normal exam creation, LaTeX web form creation, Exercise structure, Top
+@chapter LaTeX normal exam creation
+
+This section explains how to create normal exams.
+
+
+@menu
+* LaTeX Master file for normal::
+* LaTeX macros for normal::
+* Exam processing::
+* Creation of the answer key in normal exams::
+* Creation of the answer latex file in normal exams::
+@end menu
+
+@node LaTeX Master file for normal, LaTeX macros for normal, LaTeX normal exam creation, LaTeX normal exam creation
+@section LaTeX Master file for normal
+
+This file, specified with the keyword @code{mastertex} in the test description 
+file, holds all the macro definitions for the formatting of the exams. 
+Manyex writes the calls to these macros in the right places of the exam file,
+and the macros have to be defined in the @code{mastertex} file. 
+Manyex also defines macros to act as counters for exercises and questions. 
+These are directly defined by Manyex and can be used in the 
+@code{mastertex} macros, as shown in the example below. Most of them are
+required, even if empty, for instance
+
+@example
+@verbatim
+\newcommand\mnglobalheader{}
+@end verbatim
+
+@end example
+
+
+@node LaTeX macros for normal, Exam processing, LaTeX Master file for normal, LaTeX normal exam creation
+@section LaTeX Macros for normal
+
+The list of macros is the following:
+
+@menu
+Macros for formatting:
+* \mnglobalheader::
+* \mnpaperheader::
+* \mnpaperfooter::
+* \mnexerciseheader::
+* \mnexercisestartheader::
+* \mnexercisefooter::
+* \mnquestionheader::
+* \mnquestionfooter::
+* \mnanswerheader::
+* \mnanswerfooter::
+* \mnanswerglobalheader::
+
+Macros holding numbers:
+* \mnserialnumber::
+* \mnexercisenumber::
+* \mnquestionnumber::
+@end menu
+
+@node \mnglobalheader, \mnpaperheader, LaTeX macros for normal, LaTeX macros for normal
+@subsection \mnglobalheader
+
+Required. 
+This is included only at the beginning of the LaTeX normal output file,
+but in each web form file. It can include general LaTeX definitions or 
+configurations for the exams. 
+
+@node \mnpaperheader, \mnpaperfooter, \mnglobalheader, LaTeX macros for normal
+@subsection \mnpaperheader
+
+Required. This is included at the beginning of each exam being created. It can
+include general instructions or other headers needed for the exams. 
+
+@strong{Example of \mnpaperheader}
+
+@example
+@verbatim
+\newcommand{\mnpaperheader}{
+
+{\bf\Large Universitat Pompeu Fabra}
+
+{\bf\Large Group: 01}
+
+{\bf\Large Exam permutation: \mnserialnumber}
+
+\centerline{\Large Final Exam}
+
+\bigskip
+
+}
+@end verbatim
+@end example
+
+Note the use of @code{\mnserialnumber}.
+
+
+@node \mnpaperfooter, \mnexerciseheader, \mnpaperheader, LaTeX macros for normal
+@subsection \mnpaperfooter
+
+Required. This is included at the end of each exam. You can specify here
+instructions to turn in the exam, when the grades are going to be
+available, etc. 
+
+@node \mnexerciseheader, \mnexercisestartheader, \mnpaperfooter, LaTeX macros for normal
+@subsection \mnexerciseheader
+
+Required. This is written at the top of each exercise. For instance:
+
+@example
+@verbatim
+\newcommand{\mnexerciseheader}{{\noindent 
+\bf \large Exercisi \mnexercisenumber}: }
+@end verbatim
+@end example
+
+@node \mnexercisestartheader, \mnexercisefooter, \mnexerciseheader, LaTeX macros for normal
+@subsection \mnexercisestartheader
+
+Required onlyu when @code{exercise}\@code{endexercise} is used in the test
+description file. 
+This is used to include just one exercise header when a series of
+exercises are lumped together. For instance if a number of true/false
+questions are included in a single exam. since each one of this is a
+single line question, they can be put all together in a single
+exercise. See the command @code{exercise} in the test description
+file. This macro has to be defined (even if empty) when this option is
+used.
+
+@strong{Example of \mnexercisestartheader}
+
+@example
+@verbatim
+\newcommand{\mnexercisestartheader}
+{Indicate if the following statements are true or false:
+
+\smallskip
+
+}
+@end verbatim
+@end example
+
+
+@node \mnexercisefooter, \mnquestionheader, \mnexercisestartheader, LaTeX macros for normal
+@subsection \mnexercisefooter
+
+Required. This macro will be included at the end of each exercise. 
+
+@node \mnquestionheader, \mnquestionfooter, \mnexercisefooter, LaTeX macros for normal
+@subsection \mnquestionheader
+
+Required. This macro is included at the beginning of each exercise. For
+instance: 
+
+@example
+@verbatim
+\newcommand{\mnquestionheader}{{\noindent \bf Question \mnquestionnumber}: 
+@end verbatim
+@end example
+
+
+@node \mnquestionfooter, \mnanswerglobalheader, \mnquestionheader, LaTeX macros for normal
+@subsection \mnquestionfooter
+
+Required. This macro is included at the end of each question.
+
+@node \mnanswerglobalheader, \mnanswerheader, \mnquestionfooter, LaTeX macros for normal
+@subsection \mnanswerglobalheeader
+
+Required if an answer is being created. Same as \mnglobalheader but just
+for answers. 
+
+@node \mnanswerheader, \mnanswerfooter, \mnanswerglobalheader, LaTeX macros for normal
+@subsection \mnanswerheader
+
+Required if an answer is being created. This macro is included at the
+beginning of the answers. For instance:
+
+@example
+@verbatim
+\newcommand{\mnanswerheader}{
+\smallskip
+
+Answer:
+
+\smallskip}
+@end verbatim
+@end example
+
+@node \mnanswerfooter, \mnserialnumber, \mnanswerheader, LaTeX macros for normal
+@subsection \mnanswerfooter
+
+Required if an answer is being created. This is included at the end of
+the answers. 
+
+@node \mnserialnumber, \mnexercisenumber, \mnanswerfooter, LaTeX macros for normal
+@subsection \mnserialnumber
+
+This is macro defined by manyex in the LaTeX output file that holds a
+counter for the exams. It can be used to put the number of the exam
+variation (see \mnpaperheader). 
+
+@node \mnexercisenumber, \mnquestionnumber, \mnserialnumber, LaTeX macros for normal
+@subsection \mnexercisenumber
+
+This is a macro defined by manyex that is used to number the exercises. 
+
+@node \mnquestionnumber,  , \mnexercisenumber, LaTeX macros for normal
+@subsection \mnquestionnnumber
+
+This is a macro defined by manyex that is used to number the questions. 
+
+
+@node Exam processing, Creation of the answer key in normal exams, LaTeX macros for normal, LaTeX normal exam creation
+@section Exam Processing
+
+Once the master file has been created, and the test description file
+specifies the type of exame wanted and the location of the exercices,
+manyex is read to create the exams from the command line. For instance
+
+@code{manyex -n -f desc-test}
+
+will create both the LaTeX normal exam containing all the answers, the
+LaTeX normal answer file, the file @file{mn-correct} with the correct
+answers for multiplechoice and truefalse questions, and a log file
+@file{mn-logfile} with some diagnostics on how manyex created the exams,
+as well as error messages. 
+
+@node Creation of the answer key in normal exams, Creation of the answer latex file in normal exams, Exam processing, LaTeX normal exam creation
+@section Creation of the answer key in normal exams
+
+When a normal latex exam is created, the answer key
+ for multiplechoice questions
+and true/false questions are written in a file. This file can be 
+later processed to grade the exams by mechanical procedures or any 
+other procedure. This file is called @file{mn-correct}. 
+
+@node Creation of the answer latex file in normal exams,  , Creation of the answer key in normal exams, LaTeX normal exam creation
+@section Creation of the answer latex file in normal exams
+
+When a normal latex exam is created, the same exam is written with the 
+answers of the questions. The answers can be entered using the commands
+@code{answer} and @code{endanswer} in the exercise definition. For 
+multiplechoice and true/false exams the correct answers are marked also 
+in the question. 
+
+@node LaTeX web form creation, The creation of answers, LaTeX normal exam creation, Top
+@chapter LaTeX web form creation
+
+Manyex can create Latex output to be processed with 
+@code{tth}  (@url{http://hutchinson.belmont.ma.us/tth/}). Some special
+instructions have to be given in the test description file. 
+
+
+
+@menu
+* LaTeX Master file for web::
+* LaTeX macros for web::
+* The web form::
+* Use of tth::
+@end menu
+
+@node LaTeX Master file for web, LaTeX macros for web, LaTeX web form creation, LaTeX web form creation
+@section LaTeX Master file for web
+
+The Master
+LaTeX file has to include all the same macro definitions as the normal
+LaTeX exam, plus two extra macro definitions that are included by manyex
+in front of the form and at the submit button of the form. 
+
+@node LaTeX macros for web, The web form, LaTeX Master file for web, LaTeX web form creation
+@section LaTeX macros for web
+
+These are the additional macros for the web form exams:
+
+@menu
+* \mnformheader::
+* \mnformfooter::
+* \mnsubmitheader::
+* \mnsubmitfooter::
+@end menu
+
+@node \mnformheader, \mnformfooter, LaTeX macros for web, LaTeX macros for web
+@subsection \mnformheader
+
+Required for web form exams. 
+This macro is included at the beginning of the form by LaTeX. For
+instance:
+
+
+@example
+@verbatim
+\newcommand{\mnformheader}{
+Fill your data. Please fill it correctly otherwise we will not be
+able to identify your test and it will not be graded:
+
+}
+@end verbatim
+@end example
+
+
+@node \mnformfooter, \mnsubmitheader, \mnformheader, LaTeX macros for web
+@subsection \mnformfooter
+
+Required for web form exams. This macro is included at the footer of the
+initial form fields and before the actual questions. It can include
+things like this:
+
+@example
+@verbatim
+\newcommand{\mnformfooter}{
+
+\smallskip
+
+{\bf \large VERY IMPORTANT: Please do not forget to click on ``I
+finished'' at the end of the test.}
+
+}
+@end verbatim
+@end example
+
+
+@node \mnsubmitheader, \mnsubmitfooter, \mnformfooter, LaTeX macros for web
+@subsection \mnsubmitheader
+
+Required for web form exams. This is included before the submit
+button. For instance:
+
+@example
+@verbatim
+\newcommand{\mnsubmitheader}{
+\bigskip
+
+If you have finised you can send your test so that it is graded, by
+clicking on the next button:
+
+}
+@end verbatim
+@end example
+
+@node \mnsubmitfooter,  , \mnsubmitheader, LaTeX macros for web
+@subsection \mnsubmitfooter
+
+Required for web form exams. It is included after the submit button. 
+
+@node The web form, Use of tth, LaTeX macros for web, LaTeX web form creation
+@section The web form
+
+Manyex creates the actual web forms (Latex files to be processed by tth)
+issuing the following command:
+
+@code{manyex -w -f desc-test}
+
+
+This will create a different file for each web form exam (in contrast
+with LaTeX normal exams that are put all in a single file). The idea is
+to post these forms in the web and have some script choose randomly one
+of the variations, and once submitted to save the data for processing.
+
+@node Use of tth,  , The web form, LaTeX web form creation
+@section Use of tth
+
+The files created in the previous step have to be processed by
+@code{tth}. Since there may be a lot of file to process, a script to
+process them in batch mode could prove useful, for instance:
+
+@example
+#!/usr/bin/bash
+
+for m in exam*.tex
+do
+ tth -p/home/wgarcia/sources/devel_question/webtry/ $m
+done
+
+for m in answer*.tex
+do
+ tth -p/home/wgarcia/sources/devel_question/webtry/ $m
+done
+@end example
+
+
+@node The creation of answers, A complete example, LaTeX web form creation, Top
+@chapter The creation of answers
+
+Answers are created automatically, both for LaTeX normal exams and for
+web form exams. There is also the file @file{mn-correct} which is
+created with the correct answers for each test. 
+
+@menu
+* Short key answers::
+* Normal LaTeX answers::
+* Web form answers::
+@end menu
+
+@node Short key answers, Normal LaTeX answers, The creation of answers, The creation of answers
+@section Short key anwers
+
+The correct answers for multiplechoice and truefalse are recorded in the
+file @file{mn-correct}. Each line holds the correct answers for a
+different exam. The first three digits hold the exam number. For
+multiplechoice questions the letter label corresponding to the correct
+option is recorded. For truefalse questions, A is recorded if the statement
+is ture and B if it is false. Finally for shortanswer questions, A is
+recorded but it has no meaning. 
+
+For instance if two exams are created, with one exercise and six
+questions of the multiplechoice type, the @file{mn-correct} file may
+look like:
+
+@example
+001AABDEF
+002BCAADE
+@end example
+
+
+@node Normal LaTeX answers, Web form answers, Short key answers, The creation of answers
+@section Normal LaTeX answers
+
+Normal LaTeX answers have the same format as the actual exams, but
+anything included between @code{answer} and @code{endanswer}
+within the questions is included. In multiplechoice exams the correct
+answers are also marked with a square around the letter label of the
+option. For true/false questions, true or false is written in the exam
+using the labels given in the truefalse statement in the test
+description file.
+
+@node Web form answers,  , Normal LaTeX answers, The creation of answers
+@section Web form answers
+
+Web form answers are created to be posted in the web. They work in a
+similar way to normal LaTeX answers. 
+
+@node A complete example, Index, The creation of answers, Top
+@chapter A complete example
+
+In this section we show a complete example, which can be found in the
+@file{example_normal} subdirectory of the distribution tree. The
+exercises used can be found in the @file{example_base} subdirectory. 
+
+@menu
+* The database of exercises::
+* LaTeX Master file::
+* The test description file example::
+* Created LaTeX exams::
+* Created web form exams::
+@end menu
+
+@node The database of exercises, LaTeX Master file,, A complete example
+@section The database of exercises
+
+The exercises to be used in this example are for a course in Descriptive
+Statistics. The full directory tree of the exercise database of this 
+example is the following:
+
+@verbatim
+example_base -- 1num_m -- exer1
+                       -- exer2
+                       -- exer3
+                       -- stem1.eps
+                       -- stem1.jpg
+                       -- stem2.eps
+                       -- stem2.jpg
+             -- 1num_t -- bimodal.eps
+                       -- bimodal.jpg
+                       -- exer1 
+                       -- exer2                        
+                       -- exer3                
+                       -- exer4 
+                       -- exer5
+             -- Normal_m -- exer1
+                         -- exer2
+                         -- exer3
+             -- Normal_s -- exer1
+                         -- exer2
+             -- Normal_t -- exer1
+                            exer2
+                            exer3
+                            exer4
+                            exer5
+@end verbatim
+
+COMMENT: in some of the subdirectories there are some graphic files. 
+Encapsulated Postscript file (.eps) are fore normal LaTeX output and 
+JPEG file (.jpg) are for LaTeX web forms. Manyex will move these files (if
+they are specified in the exercise definition) to the directory where it
+creates the exams. 
+
+We list next all exercises in the database:
+
+1num_m/exer1:
+@verbatim
+#
+#  Exercise 1 of example database of questions
+#  Exercise on 1 numerical variable - multiplechoice
+#  6 questions
+#
+
+title "Countries that have won the World Cup (1950-2002)"
+block (type=multiplechoice rearrange=yes)
+statement
+The following table shows the list of countries that have won
+the World Cup in the period 1950-2002. We are interested in 
+studying the percentage of times that a given country has won 
+the World Cup. 
+
+\begin{center}
+\begin{tabular}{c c}
+\hline\hline
+Year & Country \\
+\hline
+1950 &	1 \\
+1954 &	2 \\
+1958 &	3 \\
+1962 &	3 \\
+1966 &	4 \\
+1970 &	3 \\
+1974 &	2 \\
+1978 &	5 \\
+1982 &	6 \\
+1986 &	5 \\
+1990 &	2 \\
+1994 &	3 \\
+1998 &	7 \\
+2002 &	3 \\
+\hline
+\end{tabular}
+\end{center}
+
+Key: Uruguay=1, Germany=2, Brazil=3, England=4, Argentina=5,
+Italy=6, France=7.
+
+Answer the following questions:
+endstatement
+
+question
+The "Country" variable is:
+. a numerical continuous variable.
+. a numerical discrete variable.
+. an absolute frequency.
+. a relative frequency.
+; None of the above options is correct. 
+answer
+It is a categorical variable, despite the fact that is is codified
+with numbers. Numbers in this case are just labels for the country name.
+endanswer
+endquestion
+
+question
+Organize the data in a frequency table. What values does the variable have?
+. 1, 2, 3, 4, 5, 6, 7.
+. 1950,1954,1958,1962, 1966, 1970, 1974, 1978, 1982, 1986, 1990,
+1994, 1998, 2002.
+. 1, 2, 3, 5.
+. It does not take values. 
+: None of the abofe options is correct. 
+answer
+The variable is "Country" and it can have values that go from 1 to 7, 
+corresponding to the 7 countries mentioned in the sample. 
+endanswer
+endquestion
+
+question
+In this data set, an individual is...
+. A country. 
+. A year. 
+. A number between 1 and 7. 
+. A number between 1 and 5.
+: None of the above options is correct. 
+answer
+A country, and its frequency is how manyt times it has won the World Cup. 
+endanswer
+endquestion
+
+question
+The statement "a 86\% of the countries has won the World Cup no more 
+than 2 times since 1950" is referring to:
+. An absolute frequency. 
+. A relative frequency. 
+. A cumulative absolute frequency. 
+. A cumulative relative frequency.
+; None of the above options is correct. 
+answer
+It is clearly not an absolute frequency, since a percentage is given. But
+furthermore it is not a cumulative frequency either, since cumulative 
+frequencies make only sense for numerical variables, where the values of 
+the variable can be ordered and its frequencies accumulated. Therefore
+none of the options is correct. 
+endanswer
+endquestion
+
+question
+To represent this distribution graphically, one can use:
+. A bar diagram.
+. A histogram.
+. A stem-and-leaf plot.
+. An approximate drawing.
+: None of the above options is correct.
+answer
+The most appropiate graphical representation for a categorical variables is 
+a bar diagram
+endanswer
+endquestion
+
+question
+To describe this distribution one has to comment:
+. A comparison between the percentage of times that countries have one 
+the World Cup. 
+. The center and the spread.
+. The form and extreme values, if any. 
+. The center, the spread, the form and extreme values, if any. 
+: None of the above options is correct. 
+answer
+Being a categorical variable, there is only one appropiate numerical summary: 
+the proporton or percentatge of cases in each category. 
+endanswer
+endquestion
+endblock
+@end verbatim
+
+COMMENT: This exercise is composed by just one block with six questions 
+of the multiplechoice type. Everything will be permuted here, the questions 
+and the options within the questions, except those prefixed with ``:'' or 
+``;''. Usually the first option is the correct one, except when a ``;'' 
+is present, in which case that one will the correct one, for instance
+the first question in this exercise, ``None of the above options is 
+correct'', which cannot be permuted to maintain the meaning of the question.
+
+1num_m/exer2:
+@verbatim
+#
+#  Exercise 2 of example database of questions
+#  Exercise on 1 numerical variable - multiplechoice
+#  6 questions
+#
+
+title "Student pocket cash"
+auxiliar "stem1.eps"
+webfile "stem1.jpg"
+block (type=multiplechoice rearrange=yes)
+statement
+The following is a stem-and-leaf plot of the variable "pocket cash", 
+measure in euros with no cents, based on answers of a survey of 15 
+students of group 3 of Data Analysis 101:
+
+\bigskip
+
+\tthdump{
+\begin{center}
+\leavevmode
+\epsfxsize=55pt
+\epsfbox{stem1.eps}
+\end{center}
+}
+%%tth:\begin{html}<p><img SRC="stem1.jpg" height=300 width=250></center>\end{html}
+endstatement
+
+question
+The "pocket cash" variable is:
+.  Numerical.
+.  Continuous categorical.
+.  Categorical.
+.  Discrete categorical.
+: None of the above options is correct.
+answer
+It is clearly a numerical variable, the amount of money that students 
+carry in their pockets. 
+endanswer
+endquestion
+
+question
+The fourth observation, in the ordered list of cases from the smallest to 
+the largest value, is:
+. 35
+. 4
+. 12
+. 17
+; None of the above options is correct. 
+answer
+The fourth observation is 11, therefore no option is correct. 
+endanswer
+endquestion
+
+question
+The center of the distributio is:
+. 22 euros
+. Between 17 and 22 euros
+. 12 euros
+. 49 euros
+: None of the above options is correct. 
+answer
+Since there are 15 cases (an uneven number of cases), there is a 
+case which lies exactly in the center, the 8th case. We check the 
+ordered list and we see that this cas has a value equal to 22. 
+endanswer
+endquestion
+
+question
+The form of the distribution is:
+. Skewed to the right. 
+. Perfectly symmetric. 
+. Skewed to the left. 
+. It does not have a form. 
+: None of the above options is correct. 
+answer
+If there weren't some unusually high values, the distribution would be 
+more symmetric, therefore we have skewness to the right (to high values). 
+endanswer
+endquestion
+
+question
+The distribution
+. has an outlier equal to 86.
+. does not have outliers.
+. has two outliers equal to 4 and 5.
+. has one outlier equal to 49. 
+: None of the above options is correct. 
+answer
+The case with a value equal to 86 is clearly isolated from the rest and 
+therefore we can consider it an outlier.
+endanswer
+endquestion
+
+question
+The leaf unit is equal to 
+. 1.
+. 10.
+. 100.
+. euro cents.
+: None of the above options is correct. 
+answer
+The values that we observe in the plot are equal to the actual values 
+in euros, therefore the leaf unit is equal to 1.
+endanswer
+endquestion
+endblock
+@end verbatim
+
+1num/exer3:
+@verbatim
+#
+#  Exercise 3 of example database of questions
+#  Exercise on 1 numerical variable - multiplechoice
+#  6 questions
+#
+
+title "Poverty in the world - 2005"
+auxiliar "stem2.eps"
+webfile "stem2.jpg"
+block (type=multiplechoice rearrange=yes)
+statement
+The following data set shows the percentage of people under the
+poverty line in different countries for 2005:
+
+\begin{center}
+\begin{tabular}{l c}
+\hline\hline
+Country & Poverty Percentage \\
+\hline
+Australia & 11.2 \\
+Austria	 & 9.3 \\
+Canada	& 10.3 \\
+Denmark & 4.3 \\
+Finland & 6.4 \\
+France	& 7.0 \\
+Germany & 9.8 \\ 
+Greece	& 13.5 \\
+Italy & 12.9 \\
+Portugal & 13.7 \\
+United Kingdom & 11.4 \\
+\multicolumn{2}{c}{Source: OCDE 2005} \\
+\hline
+\end{tabular}
+\end{center}
+
+endstatement
+
+question
+In this data set, an individual is
+. A country.
+. A number between 4 and 14. 
+. A poverty percentage. 
+. A year. 
+: None of the above options is correct. 
+answer
+The cases that we have in our sample correpond to countries for which we
+observe a characteristic, the percentage of poor people (according
+to the poverty line criterium). Therefore the individuals are countries. 
+endanswer
+endquestion
+
+question
+The variable `Poverty percentage'' is:
+. Numerical.
+. Categorical continuous.
+. Categorical. 
+. Categorical discrete. 
+: None of the above options is correct. 
+answer
+It is a numerical variable, we quantify the percentage of poor people for 
+each country. 
+endanswer
+endquestion
+endblock
+
+# We start a new block, since we do not want to permute completely
+# the questions because it would affect the logical flow of the exercise. 
+
+# \tthdump is a macro that has to be defined and included in the 
+# master LaTeX file. It is used to ignore the incluson of the .eps
+# file when you are building a html form exam, in which case 
+# the .jpg file will be included. See the tth manual for the %%tth
+# construct.
+
+block (type=multiplechoice rearrange=no)
+question
+
+Draw a stem-and-leaf plot for this distribution (do not round the 
+leafs or split the stems). The number of stems in the diagram that 
+you get is:
+. 10
+. 8
+. 11
+. Les than 8
+: None of the above options is correct. 
+answer
+The stem-and-leaf plot is the following
+
+
+\bigskip
+
+\tthdump{
+\begin{center}
+\leavevmode
+\epsfxsize=40pt
+\epsfbox{stem2.eps}
+\end{center}
+}
+%%tth:\begin{html}<p><img SRC="stem2.jpg" height=300 width=250></center>\end{html}
+
+There are 10 stems in the diagram.
+endanswer
+endquestion
+
+question
+According to the stem-and-leaf plot, the center of the distribution is:
+. 9.8
+. Between 8 and 9
+. 10.3
+. 11.2
+: None of the above options is correct. 
+answer
+The center is defined as the case which is larger than 50\% of the cases
+and smaller than 50\%. Since there is an uneven number of cases (11), at
+the plot it will correspond with the case in the 6th place, that is 9.8.
+endanswer
+endquestion
+endblock
+
+# Now we allow for the last two questions to permute, but they will be
+# always located at the end. 
+
+block (type=multiplechoice rearrange=yes)
+question
+
+We want now to reduce the number of stems to only 2 stems. To achieve this,
+we will have to:
+. round and split the stems in 2.
+. round.
+. split the stems in 2. 
+. split the stems in 5.
+: none of the above options is correct. 
+answer
+Rounding to the tens, we get two stems (0 and 1), therefor to get 4 stems we 
+have to split then afterwards in 2. Therefore the correct answer is 
+round and split in 2. 
+endanswer
+endquestion
+
+question
+The form of the distribution is:
+. Skewed to the left. 
+. Quite symmetric. 
+. Skewed to the right. 
+. Neither symmetric nor skewed. 
+: None of the above options is correct. 
+answer
+There are some small values that break the symmetry of the distribution, 
+therefore the distribution is skewed to the left. 
+endanswer
+endquestion
+endblock
+@end verbatim
+
+COMMENT: Notice the use of different blocks in this last exercise. This
+is helpful if the meaning of the exercise would be lost when permuting
+the questions. 
+
+Normal_m/exer1
+@verbatim
+#
+#  Exercise 1 of example database of questions
+#  Exercise on normal distribution - multiplechoice
+#  6 questions
+#
+
+title "Rainfall in Catalunya"
+block (type=multiplechoice rearrange=yes)
+statement
+During the last 50 years, yearly average rainfall follows an 
+approximately normal distribution with mean equal to 20 l/m$^2$
+and a standard deviation of 3 l/m$^2$. 
+endstatement
+question
+What's the percentage of years that has rained more than 23 l.?
+. Un 16\%
+. Un 32\%
+. Un 22\%
+. Un 24\%
+: None of the above options is correct. 
+answer
+According to the rule 100 - 68=32\% of the frequencies are outside the 
+limit of the mean plus/minus one standard deviation. Looking at only
+one side of the distribution we have 32/2=16\%. 
+
+We can also compute the percentage standardizing $X$:
+
+\[ {{23 - 20} \over {3}} = 1 \]
+
+Looking at the table of standard normal we get that the proportion of 
+frequencies lying ot the right of $z=1$ is approximately 16\%. 
+endanswer
+endquestion
+
+question
+What is the approximate maximum rainfall of the 2.5\% of years with less 
+rain?
+. 14 l/m$^2$
+. 12 l/m$^2$
+. 16 l/m$^2$
+. 10 l/m$^2$
+: None of the above options is correct. 
+answer
+This can computed with the rule, since the mean plus/minus 2 standard 
+deviations leaves 5\% of the frequencies outside the limits, looking at 
+only one side we have 2.5\%, therefore $20 - 2\cdot 3=14$.
+
+We can also look at
+the table of the standard distribution, we find that 2.5\% of the 
+frequencies are on the left of $z=-1.96$, so we recover the corresponding 
+$X$: 
+
+\[ X = 20 - 1.96 \cdot 3 = 14.12 \]
+endanswer
+endquestion
+  
+question
+What approximate percentage of years has rained less than 16 l.?
+. 9.18 \%
+. 12.34 \%
+. 14.93 \%
+. 6.12 \%
+: None of the above options is correct. 
+answer
+We standardize:
+
+\[ {{ 16 - 20}\over{3}} = -1.33 \]
+
+The percentage of frequencies on the left (smaller values)
+ of $z=-1.33$ in the standard normal table is: 9.18\%.
+endanswer
+endquestion
+  
+question
+What is the approximate maximum rainfall of the 25\% years with less rain?
+. 18 l/m$^2$
+. 22 l/m$^2$
+. 25 l/m$^2$
+. 15 l/m$^2$
+: None of the above options is correct. 
+answer
+We look for the $z$ in the standard normal table that leaves 25\% of the 
+frequencies to the left, and we get $z=-0.67$. We recover $X$:
+
+\[ 20 - 0.67 \cdot 3 = 17.99 l/\mbox{m}^2 \]
+endanswer
+endquestion
+
+question
+What is the approximate percentage of years that has rained between 
+14 and 23 l/m$^2$?
+. 82.5 \%
+. 24 \%
+. 18.5 \%
+. 15 \%
+: None of the above options is correct. 
+answer
+According to other questions, 2.5\% of the days it rains less than 14 l/m$^2$ 
+and 16\% of days it rains more than 23 l/m$^2$, therefore between these
+to limits it rains:
+
+\[ 100 - 2.5 - 16 = 82.5 \mbox{\%} \]
+of the days.
+endanswer
+endquestion
+endblock
+
+block (type=multiplechoice rearrange=yes)
+question
+What should be the approximate shape of the rainfall distribution so that
+the computations done in this exercise are valid?
+. symmetric
+. skewed to the left
+. skewed to the right
+. bimodal
+: None of the above options is correct. 
+answer
+The computations here are valid if the underlying distributin is normal, and 
+the normal distribution is symmetric.
+endanswer
+endquestion
+endblock
+@end verbatim
+
+1num_m/exer2:
+@verbatim
+#
+#  Exercise 2 of example database of questions
+#  Exercise on normal distribution - multiplechoice
+#  6 questions
+#
+
+title "Duration of the Data Analysis class"
+block (type=multiplechoice rearrange=yes)
+statement
+
+The duration of the Data Analysis class follows an approximately normal 
+distribution with mean equal to 120 minutes and standard deviation equal
+to 2 minutes. 
+endstatement
+question
+What is the approximate percentage of classes that last more than 126
+minutes?
+. Un 0.15 \% 
+. Un 1.5 \%
+. Un 15 \%
+. Un 99.7 \%
+: None of the above options is correct. 
+answer
+This corresponds to the mean plus three times the standard deviation, 
+and therefore according to the 68-95-99.7\% rule 0.3\% of the frequencies
+are left out of these limits on both sides of the distribution, looking 
+only at one side (the largest values) we get 0.3/2 = 0.15\%. 
+endanswer
+endquestion
+
+question
+What is the approximate minimum duration of the 2.5\% of shortest classes?
+. 116 minutes
+. 106 minutes
+. 126 minutes
+. 96 minutes
+: None of the above options is correct. 
+answer
+Using the rule, 120 - 2*2 = 116 minutes.
+endanswer
+endquestion
+  
+question
+What approximate percentage of classes last less than 117 minutes?
+. 6.68 \%
+. 12.34 \%
+. 9.12 \%
+. 14.93 \%
+: None of the above options is correct. 
+answer
+We standardize:
+
+\[ X = {{117 - 120}\over{2}} = -1.5 \]
+
+Looking at the table of the standard normal, we find that for $z=-1.5$ a
+6.68\% of the frequencies are smaller. 
+endanswer
+endquestion
+  
+question
+What is the approximate maximum duration of the 10\% of longest clases?
+. 122.56 minutes
+. 132.56 minutes
+. 142.56 minutes
+. 92.56 minutes
+: None of the above options is correct. 
+answer
+The corresponding standard $z$ is 1.28, so we recover $X$:
+
+\[ 120 + 1.28 \cdot 2 = 122.56\]
+endanswer
+endquestion
+
+question
+What is the approximate percentage of classes that last between
+116 and 120 minutes?
+. 47.5 \%
+. 24 \%
+. 36 \%
+. 16 \%
+: None of the above options is correct. 
+answer
+2.5\% are shorter than 116 minutes, and 50\% are larger than 120 minutes 
+(since it is the mean and by symmetry also the median), therefore:
+
+\[ 100 - 50 - 2.5 = 47.5\]
+endanswer
+endquestion
+
+question
+What is the approximate duration of a class with standardized duration 
+equal to 1?
+. 122 minutes
+. 132 minutes
+. 112 minutes
+. 142 minutes
+: None of the above options is correct. 
+answer
+Since it is one standard deviation above the mean (mean = 0 , standard 
+deviation = 1), we get:
+
+\[ 120 + 2 = 122 \]
+endanswer
+endquestion
+endblock
+@end verbatim
+
+Normal_m/exer3:
+@verbatim
+#
+#  Exercise 3 of example database of questions
+#  Exercise on normal distribution - multiplechoice
+#  6 questions
+#
+
+title "Noise in the street"
+block (type=multiplechoice rearrange=yes)
+statement
+The noise at the crossing of the Balmes and Aragó streets in Barcelona 
+has been recorded during 50 days and it has been determined that 
+the level of noise follows an approximately normal distribution with mean
+equal to 20 deciBels and a standard deviation equal to 1 deciBel. 
+endstatement
+
+
+question
+What is the approximate number of days during the period of 50 days recorded 
+where the noise level is equal or larger than 21.28 deciBel?
+. 5 days
+. 10 days
+. 15 days
+. 2 days
+: None of the above optins is correct. 
+endquestion
+
+question
+What is the approximate percentage of days were the noise is less than 19
+deciBels?
+. 16 \%
+. 20 \%
+. 10 \%
+. 90 \%
+: None of the above optins is correct. 
+endquestion
+  
+question
+What is the approximate percentage of days when the noisce is larger than
+22 deciBels?
+. 2.5\%
+. 0.5 \%
+. 5 \%
+. 95 \%
+: None of the above optins is correct. 
+endquestion
+  
+question
+What is the approximate percentage of days where the noise level lies
+between 19.5 and 20.5 deciBels?
+. 38,30 \%
+. 48,30 \%
+. 28,30 \%
+. 18,30 \%
+: None of the above optins is correct. 
+endquestion
+
+question
+On a day with standardized normal level of -1, is there more or less noise
+than the median of the distribution?
+. Less.
+. We do not have enough information to answer the question.
+. There is the same noise
+. More. 
+: None of the above optins is correct. 
+endquestion
+endblock
+
+block (type=multiplechoice rearrange=yes)
+question
+If during some days there are works and the noise level increases 2
+deciBels, the mean of the standardized distribution
+. does not change. 
+. increases.
+. decreases.
+. it becomes negative. 
+: None of the above optins is correct. 
+endquestion
+endblock
+@end verbatim
+
+1num_t/exer1:
+@verbatim
+block (type=truefalse)
+question
+. If the distribution is skewed to the right, the mean will be always larger
+than the median. 
+answer
+True, the mean is sensitive to outliers and will be moved to the right 
+by abnormally high values in the distribution (right-skewness). 
+endanswer
+endquestion
+endblock
+@endverbatim
+
+COMENT: True/false exercises are composed by questions with just one option 
+that can be true or false. True options are prefixed with ``.'' and false
+options with ``:''. It is convenient to have just one question in each
+true/false exercise, so that they can be permuted for different exams more
+appropiately. They could also have more than one question.
+
+1num_t/exer2:
+@verbatim
+block (type=truefalse)
+question
+: The coefficient of variation is a summary of the form of the ditribution. 
+answer
+False, the coefficient of variation measures spread, it is simply the 
+standard deviation (a measure of spread) divided by the mean. 
+endanswer
+endquestion
+endblock
+@end verbatim
+
+1num_t/exer3:
+@verbatim
+block (type=truefalse)
+auxiliar "bimodal.eps"
+webfile "bimodal.jpg"
+question
+: If the mean and the median have the same value then the distribution is
+unimodal. 
+answer
+False, the mean and the median having the same value implies that the
+distribution is symmetric, but it can have two modes or any other form, 
+for instance:
+
+\bigskip
+
+\tthdump{
+\begin{center}
+\leavevmode
+\epsfxsize=110pt
+\epsfbox{bimodal.eps}
+\end{center}
+}
+%%tth:\begin{html}<p><img SRC="bimodal.jpg" height=300 width=250></center>\end{html}
+
+endanswer
+endquestion
+endblock
+@end verbatim
+
+COMMENT: We have included a graph in the answer. For the LaTeX normal exam
+the ``epsf'' package is used, but of course any other package could be used. 
+For html output with ``tth'', the macro ``tthdump'' is used to ignore the
+Postscript file and the ``jpg'' version is included in the html code. See 
+the ``tth'' manual for the inclusion of graphics using ``tth''. 
+
+1num_t/exer4:
+@verbatim
+block (type=truefalse)
+question
+: The mode is a summary of the form of the distribution. 
+answer
+False, it is a summary of the center of the distribution. 
+endanswer
+endquestion
+endblock
+@end verbatim
+
+1num_t/exer5:
+@verbatim
+block (type=truefalse)
+question
+: The first quartile is a measure of spread. 
+answer
+False, it is a measure of position. With the first and third quartile
+we can get a measure of spread, since its diference, the interquartilic
+range, shows as the 50\% of the frequencies around the median. 
+endanswer
+endquestion
+endblock
+@end verbatim
+
+Normal_s/exer1:
+@verbatim
+#
+#  Exercise 1 of example database of questions
+#  Exercise on normal distribution - shortanswer
+#  3 questions
+#
+
+title "Normal Distribution"
+block (type=shortanswer rearrange=yes)
+statement
+The factory "Mantecados S.R.L." manufactures Christmas sweets in 
+the traditional way, employing 1,000 workers. The management knows
+that each worker produces a mean of 50 kgs of sweets, with a 
+standard deviation  of 3 kgs, and that this distribution is 
+approximately normal. 
+endstatement
+
+question 
+What percentage of workers produces less than a worker with
+a standardized production equal to 0.45?
+endquestion
+
+question 
+The management wants to give a prize to all the workers who 
+achieve a production of more than 57 kgs a day, and assigns a 
+budget for the prize of 10,000 euros. How much will each wining
+worker get?
+endquestion
+
+question
+The less productive workers will be moved to the packing department.
+If all workers producing less than 43 kgs per day are moved, how many
+workers will be moved to the packing department?
+endquestion
+
+endblock
+@end verbatim
+
+COMMENT: Short answer questions have only a stament, no option. Not 
+a lot of permutations can be performed on these questions, and in any
+case cheating is harder. It is also easier to hand different exams if
+they are only composed by short answer questions. In any case this 
+feature is provided to combine them with multiplechoice and true/false 
+questions, where manyex can be really useful. 
+
+Normal_s/exer2:
+@verbatim
+#
+#  Exercise 2 of example database of questions
+#  Exercise on normal distribution - shortanswer
+#  3 questions
+#
+
+title "Normal Distribution"
+block (type=shortanswer rearrange=no)
+statement
+The family business "Drink Team" produces grapes for wine, employing
+1,000 workers. The management knows that each worker collects a mean 
+of 50 kgs of grapes, with a standard deviatin of 3 kgs and the distribution
+is approximately normal. 
+endstatement
+
+question
+What percentage of workers produce less than a worker with 
+standardized procution of 0.45?
+answer
+We look at the table of the standard normal distribution and we 
+find that for $z=0.45$ (this is the percentage of frequencies to the 
+left of this value of $z$) the corresponding value is 0.6736. Therefore
+a 67.36\% of workers will produce les than a worker with standardized
+value of 0.45.
+endanswer
+endquestion
+
+question
+Workers producing more than 57 kgs will be rewarded, and there is a budget
+of 1,000 euros for the rewards. How much will a rewarded worker get?
+answer
+We standardize: 
+
+\[ z= (57-50)/3=2.33. \]
+
+Checking the table, we observe that a 1\% of the frequencies are on the
+right of 2.33, therefore 1\% of the workers will be rewarded. Over 1,000
+workers a 1\% corresponds to 10 workers. Since the budget is of 1,000 euros,
+each rewarded worker will get 100 euros. 
+endanswer
+endquestion
+
+question
+Less productive workers will be moved to the packing section. If all
+workers producing less than 43 kgs will be moved to packing, how many
+workers will be moved?
+
+answer
+We standardize:
+
+\[ z= (43-50)/3=-2.33. \]
+
+At the table we observe that to the left of this value we have 1\% of the 
+frequencies, therefore over 1,000 this represents 10 workers. 
+endanswer
+endquestion
+endblock
+@end verbatim
+
+
+Normal_t/exer1:
+@verbatim
+#
+#  Exercise 1 of example database of questions
+#  Exercise on normal distribution - true/false
+#  1 question
+#
+
+block (type=truefalse)
+question
+. The normal distribution is always symmetric
+answer
+This is true. 
+The definition of a normal distribution implies a symmetric distribution.
+endanswer
+endquestion
+endblock
+@end verbatim
+
+Normal_t/exer2:
+@verbatim
+#
+#  Exercise 2 of example database of questions
+#  Exercise on normal distribution - true/false
+#  1 question
+#
+
+block (type=truefalse)
+question
+: At every normal distribution a 2\% of the frequencies is
+less than 0.95.
+answer
+This statement is false because it depends on the mean and the
+standard deviation. 
+endanswer
+endquestion
+endblock
+@end verbatim
+
+Normal_t/exer3:
+@verbatim
+#
+#  Exercise 3 of example database of questions
+#  Exercise on normal distribution - true/false
+#  1 question
+#
+
+block (type=truefalse)
+question
+. We can know exactly how a normal distribution is if we are
+given its mean and its standard deviation. 
+answer
+True, a normal distribution is completely characterized by its mean
+and its standard deviation. 
+endanswer
+endquestion
+endblock
+@end verbatim
+
+Normal_t/exer4:
+@verbatim
+#
+#  Exercise 4 of example database of questions
+#  Exercise on normal distribution - true/false
+#  1 question
+#
+
+block (type=truefalse)
+question
+. At a normal distribution a 95\% of the frequencies fall
+in an interval $[\mu-\sigma,\mu+\sigma]$.
+answer
+True, this is a part of the 68-95-99,7\% rule.
+endanswer
+endquestion
+endblock
+@end verbatim
+
+Normal_t/exer5:
+@verbatim
+#
+#  Exercise 5 of example database of questions
+#  Exercise on normal distribution - true/false
+#  1 question
+#
+
+block (type=truefalse)
+question
+: If to a variable that follows the normal distribution we substract its 
+mean, the resulting variable will continue being normal and its 
+standard deviation will be equal to 0. 
+answer
+False, a transformation implying a simple origin change (adding or 
+substracting the mean) will not affect the spread (which is measured by the 
+standard deviation).
+endanswer
+endquestion
+endblock
+@end verbatim
+
+Once you have your exercises in your database you can start preparing 
+your exams. Changing the seed, and of course adding more exercises, you can
+create different exams each time. It is also possible to use different
+subdirectories or different exercise filename prefixes (``exerfin'', 
+``exermid'', ...) to define which exercises to use in different exams. 
+
+
+@node LaTeX Master file, The test description file example, The database of exercises, A complete example
+@section LaTeX Master file
+
+Tha LaTeX Master file has to define the macros that manyex will include
+in the LaTeX file to control the numberring of the exercises and various 
+other things. In this case the LaTeX Master file looks as follows:
+
+@verbatim
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%
+%%%
+%%% Master file for normal LaTeX exams
+%%%
+%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%% Global header. This macro is called once at the beginning of the
+%%% batch of exams.
+
+\def\tthdump#1{#1} % Do nothing. The following are not done for TtH.
+                   % Useful to put LaTeX code that will not be used
+                   % by tth. 
+% This counter will be used for a hack for correct numbering of 
+% questions, usually it is not needed except when lumping true/false
+% exercises together
+\newcounter{question}\setcounter{question}{1}
+
+\newcommand{\mnglobalheader}{}
+
+%%% This will be used in the answer output
+\newcommand{\mnanswerpaperheader}{
+\smallskip
+
+\centerline{\Large Answers for the exam:}
+
+\smallskip
+}
+
+%%% Print this on each exam, before the exercises
+\newcommand{\mnpaperheader}{
+
+{\bf\Large Universitat Pompeu Fabra}
+
+{\bf\Large Group: 01}
+
+{\bf\Large Permutation Number: \mnserialnumber}
+
+\centerline{\Large Final Exam}
+
+\bigskip
+
+}
+
+%%% Print this on each exam, after the questions. 
+%%% Questions are numbered correlatively by default, extending over 
+%%% different exercises. With the definitions here the numbering 
+%%% will restart at each exercise. Usually just \mnquestionnumber is
+%%% used. 
+\newcommand{\mnpaperfooter}{}
+
+%%% Print this before each exercise
+\newcommand{\mnexerciseheader}{
+\setcounter{question}{1}
+{\noindent \bf \large Exercise \mnexercisenumber}: }
+
+%%% This will be used by the group of true/false questions. This macro
+%%% is put in front of an exercise/enexercise group of exercises.
+\newcommand{\mnexercisestartheader}
+{Say if the following statement are true or false:
+
+\smallskip
+
+}
+
+%%% Print this after each exercise - The ``question'' counter is a
+%%% hack to allow for correct numbering of questions within exercises
+\newcommand{\mnexercisefooter}{}
+
+%%% Print this before each question
+\newcommand{\mnquestionheader}{
+{\noindent \bf Question \arabic{question}: 
+\addtocounter{question}{1}}}
+
+%%% Print this after each question
+\newcommand{\mnquestionfooter}{}
+
+%%% Print this in answer files before the answers
+\newcommand{\mnanswerheader}{
+\smallskip
+
+Answer:
+
+\smallskip}
+
+
+%%% Print this in answer files after the answers
+\newcommand{\mnanswerfooter}{}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%
+%%%
+%%% End of master file
+%%%
+%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+@end verbatim
+
+COMMENT: All necessary macros are defined in this file. In order to
+process the LaTeX file correctly, they have to be defined even if empty,
+for instance:
+
+@example
+@verbatim
+\newcommand{\mnanswerfooter}{}
+@end verbatim
+@end example
+
+Some of them are not necessary, for instance if the answer LaTeX file is
+not processed. In this example a hack is used to override the standard
+procedure to number exercises and questions used by manyex. The standard
+procedure just numbers exercises and questions within exercises, but if
+you only include one exercise, or if you have exercises with just one
+question, the result is ackward (ex.1 q.1, ex.2 q.2, ...). With the
+macros \mnexerciseheader and \mnquestionheader, and the construct
+exercise/endexerxise in the test definition file, the standard numbering of
+exercises and questions can be modified. 
+
+@node The test description file example, Created LaTeX exams, LaTeX Master file, A complete example
+@section The test description file
+
+Suppose that you want to use the exercises in our exercise database to
+create different exams that have first 10 true/false equations, second 
+multiplechoice questions on data sets of one numerical variable, third 
+multiplechoice questions on the normal distribution, and fourth a final
+exercise of the short answer type (to hand in) again on the normal
+distribution. 
+
+You can achieve this task with manyex using the following test
+description file, that you can call for instance ``desc-test'':
+
+@verbatim
+##################################################
+##################################################
+##################################################
+# This is a test description file for "manyex"
+#
+# To create the normal LaTeX exams give the command
+#
+#    manyex -n -f file-name
+#
+# where file-name is the name of this file.
+# 
+# This will create "exam".tex and "answer".tex, 
+# where "exam" and "answer" are the prefixes 
+# that you choose below (if not defined the pre-
+# fixes will be actually "exam" and "answer"). 
+#
+# It also creates mn-correct, a text file where
+# each line starts with the exam number (001, 002,
+# ...) followed by the correct answers for each 
+# question (A,B,C... for # multiplechoice, A=true, 
+# B=false for true/false and just A's for short-
+# answer), and mn-logfile with information on
+# the tasks done by manyex. 
+#
+# Then compile the latex file with latex, for
+# instance
+# 
+#   latex exam.tex
+#
+# You can also complile the answer file if you
+# want to distribute the answers after the exam. 
+# The output will contain all generated exams. 
+#
+# Look at mc-logfile after each run for possible
+# errors.
+#
+##################################################
+
+##################################################
+#
+#  Base directory for database of exercises
+#
+##################################################
+directory "../example_base"
+
+##################################################
+#
+# 1st part: Options and definitions for latex file
+#
+##################################################
+
+# Options for documentclass article
+documentclassoptions "12pt,a4paper"
+
+# Packages to be included - I use "epsf" for graphics, and 
+# configure my preferred document layout in manyex.sty, whic
+# you can find in this same directory
+usepackage "epsf,manyex"
+
+# Master tex file with macro definitions (<mastertex>.sty)
+mastertex "master"
+
+# Latex file prefix for the exams (<examtex>.tex)
+examtex "exam"
+
+# Latex file prefix for the answers (<answertex>.tex)
+answertex "answer"
+
+# Prefix for exercise files (all have to start with this)
+# Be careful not to have some other files in the exercise
+# database directories starting also with this prefix. For 
+# instance grapchics filenames should start differently. 
+exerprefix "exer"
+
+##################################################
+#                                                #
+#  2nd part: describe the tests to be created    #
+#                                                #
+##################################################
+
+# Set random seed
+# If you change this number the tests created
+# will be different. With this you can always reproduce
+# the same sequence of exams, if needed. 
+seed 8726
+
+# Set first serial number (exam numbering). 
+# The serial number used will start with the number below
+# and will increase by 1.
+serial 1
+
+# Define exercise types and how many exercises are required 
+# per type. The first argument is an integer expressing 
+# how many exercises of this type are to be included in the
+# exam. There should be enough exercises of this type in the 
+# corresponding subdir of the exercise database (or subdirs, 
+# more than one can be specified). The second argument 
+# specifies (between quotes) the name of the subdir where
+# the exercises are contained within the exercise database. 
+# More than one subdir can be speficied:
+# use 3 from "1num_1", "1num_2"
+# for instance. 
+
+# exercise/endexercise lumps all true/false questions together 
+# and puts a header "Exercise 1" in front of them, otherwise each
+# true/false question would be indexed: "Exercise 1 - Question 1", 
+# "Exercise 2 - Question 2"... and so on. 
+exercise
+use 5 from "1num_t"
+use 5 from "Normal_t"
+endexercise
+# We now include the rest of exercises
+use 1 from "1num_m"
+use 1 from "Normal_m"
+use 1 from "Normal_s"
+
+# Total number of exams to create, you can create as many exams
+# as you want, they will be all different unless you have very 
+# few exercises in the database and you request a lot of exams
+create 4
+
+##################################################
+### End test-description file
+##################################################
+@end verbatim
+
+COMMENT: The first part of the file includes different definitions for
+the processing of the LaTeX file, such as the options for the
+``article'' style, which is the one used in the exams. It tells also to
+manyex what is the name of the ``master file'', in this case
+@file{master.sty}. It includes to additional packages (with
+``\usepackage''): ``epsf'' and ``manyex'' which has been written for
+this example to define the layout of the document. This is the content
+of @file{manyex.sty}:
+
+@verbatim
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% This file sets up some parameters
+% for my preferred layout
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%  Reduce space between items
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\def\@listI{\setlength\leftmargin{\leftmargini}% 
+            \setlength\parsep {0\p@}% 
+            \setlength\topsep {.4em}% 
+            \setlength\itemsep{0pt}} 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Large layout 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\oddsidemargin  -0.5in
+\evensidemargin -0.5in
+\textwidth      7.5in
+\headheight     -0.7in
+\topmargin      -0.5cm
+\textheight=10.5in
+\footskip 0 in
+\parskip 0.10in
+@end verbatim
+
+In this part the prefix for the LaTeX file containting the exams and the
+answers, and the prefix of the exercise files can be defined. 
+
+The second part describes the actual exams being created. With the seed
+for the random number generator it is possible to generate exactly the
+same set of exams, unless you change the exercise database adding or
+removing exercises. 
+
+See the exercise/endexercise construct, to lump together all true/false
+questions. 
+
+@node Created LaTeX exams, Created web form exams, The test description file example, A complete example
+@section Created LaTeX exams
+
+To create normal LaTeX exams, the following command has to be given from
+the example_normal subdirectory:
+
+manyex -n -f desc-test.
+
+All the exams are included in a single file, in this case
+@file{exam.tex} according to the prefix defined in the test description
+file (which is also the default). The exams with the answers are written
+in @file{answer.tex}. 
+
+Here are the first 30 lines from the file @file{exam.tex}:
+
+@verbatim
+\documentclass[12pt,a4paper]{article}
+\usepackage{epsf,manyex}
+\usepackage{master}
+\pagestyle{empty}
+\begin{document}
+\mnglobalheader
+\def\mnserialnumber{1}
+\mnpaperheader
+\def\mnexercisenumber{1}
+\mnexerciseheader \mnexercisestartheader
+\smallskip
+
+\def\mnquestionnumber{1}
+\mnquestionheader \framebox[0.5in]{\phantom{T}}\qquad The first quartile is a measure of spread. 
+\mnquestionfooter
+
+\mnexercisefooter
+
+\smallskip
+
+\def\mnquestionnumber{1}
+\mnquestionheader \framebox[0.5in]{\phantom{T}}\qquad If the distribution is skewed to the right, the mean will be always larger than the median. 
+\mnquestionfooter
+
+\smallskip
+
+\def\mnquestionnumber{1}
+\mnquestionheader \framebox[0.5in]{\phantom{T}}\qquad If the mean and the median have the same value then the distribution is unimodal. 
+\mnquestionfooter
+
+\smallskip
+
+\def\mnquestionnumber{1}
+\mnquestionheader \framebox[0.5in]{\phantom{T}}\qquad The coefficient of variation is a summary of the form of the ditribution. 
+\mnquestionfooter
+
+\smallskip
+
+\def\mnquestionnumber{1}
+\mnquestionheader \framebox[0.5in]{\phantom{T}}\qquad The mode is a summary of the form of the distribution. 
+\mnquestionfooter
+@end verbatim
+
+COMMENT: ``\mnquesitonnumber is not used, it is overriden by the counter
+defined in the master LaTeX file, @file{master.sty}, see above. This is
+just the beginning of the first exam with the true/false questions. 
+
+The first 40 lines of the file with the anwers, in this case
+@file{answer.tex}, are the following:
+
+@verbatim
+\documentclass[12pt,a4paper]{article}
+\usepackage{epsf,manyex}
+\usepackage{master}
+\pagestyle{empty}
+\begin{document}
+\mnglobalheader
+\def\mnserialnumber{1}
+\mnanswerpaperheader
+\mnpaperheader
+\def\mnexercisenumber{1}
+\mnexerciseheader \mnexercisestartheader
+\smallskip
+
+\def\mnquestionnumber{1}
+\mnquestionheader \framebox{False}\qquad The first quartile is a measure of spread. 
+\mnquestionfooter
+
+\mnanswerheader
+False, it is a measure of position. With the first and third quartile
+we can get a measure of spread, since its diference, the interquartilic
+range, shows as the 50\% of the frequencies around the median. 
+\mnanswerfooter
+
+\mnexercisefooter
+
+\smallskip
+
+\def\mnquestionnumber{1}
+\mnquestionheader \framebox{True}\qquad If the distribution is skewed to the right, the mean will be always larger than the median. 
+\mnquestionfooter
+
+\mnanswerheader
+True, the mean is sensitive to outliers and will be moved to the right 
+by abnormally high values in the distribution (right-skewness). 
+\mnanswerfooter
+
+\smallskip
+
+\def\mnquestionnumber{1}
+\mnquestionheader \framebox{False}\qquad If the mean and the median have the same value then the distribution is unimodal. 
+\mnquestionfooter
+@end verbatim
+
+COMMENT: Now the actual answers plus the comments (if defined in the
+exercise files) are written in the LaTeX output. Answers are included
+for all four exams, with the same layout as the actual exams plus the
+answers. 
+
+Manyex also creates a file with the keys for the answers, called
+@file{mn-correct}. This is how it looks like in this case:
+
+@verbatim
+001BABBBBAABABACAABDCDDDDAAA
+002BABBBAABABDDEAEBACDBBBAAA
+003BBABBBAABACEBDEAACCABCAAA
+004BBABBBBAAAAECADCBDCCAAAAA
+@end verbatim
+
+True/false questions are coded by A:true and B:false. Multiple option
+questions are coded according to the correct option, and finally
+shortanswers questions are coded always as ``A'' with no meaning. 
+
+Finally, manyex creates a log with the results of the run in the file
+@file{mn-logfile}. In this case this is the file:
+
+@verbatim
+44: base dir set to ../example_base
+53: documentclass options set to 12pt,a4paper
+58: packages to be used epsf,manyex
+61: master latex file to be included master.tex
+64: exam(s) file(s) to be created with prefix exam
+67: answer(s) file(s) to be created with prefix answer
+73: Exercise prefix set to exer
+85: seed set to 8726, random number generator initialized
+Starting serial number 1
+Exercise used ../example_base/1num_t/exer5
+Exercise used ../example_base/1num_t/exer1
+Exercise used ../example_base/1num_t/exer3
+Exercise used ../example_base/1num_t/exer2
+Exercise used ../example_base/1num_t/exer4
+Exercise used ../example_base/Normal_t/exer5
+Exercise used ../example_base/Normal_t/exer4
+Exercise used ../example_base/Normal_t/exer1
+Exercise used ../example_base/Normal_t/exer2
+Exercise used ../example_base/Normal_t/exer3
+Exercise used ../example_base/1num_m/exer3
+Exercise used ../example_base/Normal_m/exer1
+Exercise used ../example_base/Normal_s/exer2
+Starting serial number 2
+Exercise used ../example_base/1num_t/exer5
+Exercise used ../example_base/1num_t/exer1
+Exercise used ../example_base/1num_t/exer3
+Exercise used ../example_base/1num_t/exer4
+Exercise used ../example_base/1num_t/exer2
+Exercise used ../example_base/Normal_t/exer3
+Exercise used ../example_base/Normal_t/exer4
+Exercise used ../example_base/Normal_t/exer5
+Exercise used ../example_base/Normal_t/exer1
+Exercise used ../example_base/Normal_t/exer2
+Exercise used ../example_base/1num_m/exer1
+Exercise used ../example_base/Normal_m/exer2
+Exercise used ../example_base/Normal_s/exer2
+Starting serial number 3
+Exercise used ../example_base/1num_t/exer4
+Exercise used ../example_base/1num_t/exer3
+Exercise used ../example_base/1num_t/exer1
+Exercise used ../example_base/1num_t/exer5
+Exercise used ../example_base/1num_t/exer2
+Exercise used ../example_base/Normal_t/exer2
+Exercise used ../example_base/Normal_t/exer4
+Exercise used ../example_base/Normal_t/exer3
+Exercise used ../example_base/Normal_t/exer5
+Exercise used ../example_base/Normal_t/exer1
+Exercise used ../example_base/1num_m/exer1
+Exercise used ../example_base/Normal_m/exer3
+Exercise used ../example_base/Normal_s/exer1
+Starting serial number 4
+Exercise used ../example_base/1num_t/exer2
+Exercise used ../example_base/1num_t/exer3
+Exercise used ../example_base/1num_t/exer1
+Exercise used ../example_base/1num_t/exer4
+Exercise used ../example_base/1num_t/exer5
+Exercise used ../example_base/Normal_t/exer2
+Exercise used ../example_base/Normal_t/exer5
+Exercise used ../example_base/Normal_t/exer4
+Exercise used ../example_base/Normal_t/exer3
+Exercise used ../example_base/Normal_t/exer1
+Exercise used ../example_base/1num_m/exer2
+Exercise used ../example_base/Normal_m/exer2
+Exercise used ../example_base/Normal_s/exer1
+@end verbatim
+
+
+@node Created web form exams,  , Created LaTeX exams, A complete example
+@section Created web form exams
+
+The procedures to create web form exams are very similar to the creation 
+of LaTeX exams, with the followwing differences:
+@enumerate
+@item
+Some special instructions have to be defined in the test description file
+to define parameters of the html form being created.
+@item
+Some additional macros have to be defined in the master LaTeX file to
+format the layout of the form. 
+@item
+Instead of processing the LaTeX output with TeX/LaTeX, the LaTeX file
+has to be processed with ``tth'' to convert it to html. Manyex prepares
+the LaTeX code to be used with this specific program. If some other
+program were to be used to create the html form, manyex code would have
+to be adjusted to produce the appropiate input for that program. 
+@end enumerate
+
+The example can be found in the subdirectory @file{example_web} of the
+distribution tree. 
+
+Here is the master file for this example , @file{master.sty}:
+
+@verbatim
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%
+%%%
+%%% Master latex file to generate web form exams
+%%%
+%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%% Global header. This macro is called once at the beginning of the
+%%% batch of exams.
+
+\def\tthdump#1{#1} % Do nothing. The following are not done for TtH.
+                   % Useful to put LaTeX code that will not be used
+                   % by tth. 
+% This counter will be used for a hack for correct numbering of 
+% questions, usually it is not needed except when lumping true/false
+% exercises together
+\newcounter{question}\setcounter{question}{1}
+
+\newcommand{\mnglobalheader}{}
+
+%%% This will be used in the answer output
+\newcommand{\mnanswerpaperheader}{
+\smallskip
+
+\centerline{\Large Answers for the exam:}
+
+\smallskip
+}
+
+%%% Print this on each exam, before the exercises
+\newcommand{\mnpaperheader}{
+
+{\bf\Large Universitat Pompeu Fabra}
+
+{\bf\Large Group: 01}
+
+{\bf\Large Permutation Number: \mnserialnumber}
+
+\centerline{\Large Final Exam}
+
+\bigskip
+
+}
+
+%%% Print this on each exam, after the questions. 
+%%% Questions are numbered correlatively by default, extending over 
+%%% different exercises. With the definitions here the numbering 
+%%% will restart at each exercise. Usually just \mnquestionnumber is
+%%% used. 
+\newcommand{\mnpaperfooter}{}
+
+
+%%% The next definitions are specifid for html form exams. They format
+%%% different aspects of the form fields. 
+\newcommand{\mnformheader}{
+Fill in your personal data. Please enter the data correctly otherwise
+we will not be able to identify your test and it will not be graded:
+
+}
+
+\newcommand{\mnformfooter}{
+
+\smallskip
+
+{\bf \large VERY IMPORTANT: Do not forget to click on ``I finished
+at the end of the test.}
+
+}
+
+\newcommand{\mnsubmitheader}{
+\bigskip
+
+If you have finished you can send your test for correction, by
+clicking on the following button:
+
+}
+
+\newcommand{\mnsubmitfooter}{}
+
+
+
+
+%%% Print this before each exercise
+\newcommand{\mnexerciseheader}{
+\setcounter{question}{1}
+{\noindent \bf \large Exercise \mnexercisenumber}: }
+
+%%% This will be used by the group of true/false questions. This macro
+%%% is put in front of an exercise/enexercise group of exercises.
+\newcommand{\mnexercisestartheader}
+{Say if the following statement are true or false:
+
+\smallskip
+
+}
+
+%%% Print this after each exercise - The ``question'' counter is a
+%%% hack to allow for correct numbering of questions within exercises
+\newcommand{\mnexercisefooter}{}
+
+%%% Print this before each question
+\newcommand{\mnquestionheader}{
+{\noindent \bf Question \arabic{question}: 
+\addtocounter{question}{1}}}
+
+%%% Print this after each question
+\newcommand{\mnquestionfooter}{}
+
+%%% Print this in answer files before the answers
+\newcommand{\mnanswerheader}{
+\smallskip
+
+Answer:
+
+\smallskip}
+
+
+%%% Print this in answer files after the answers
+\newcommand{\mnanswerfooter}{}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%
+%%%
+%%% End of master file
+%%%
+%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+@end verbatim
+
+COMMENT: The formaction field specifies a web server where the cgi for
+processing the form are located. WARNING: be careful with cgi scripts, 
+check security concerns in the Internet. 
+
+The test description file for this case is the following:
+
+@verbatim
+##################################################
+##################################################
+##################################################
+# This is a test description file for "manyex"
+#
+# To create the html form exams give the command
+#
+#    manyex -w -f file-name
+#
+# where file-name is the name of this file.
+#
+# This will create "exam"N.tex and "answer"N.tex, 
+# where "exam" and "answer" are the prefixes 
+# that you choose below (if not defined the pre-
+# fixes will be actually "exam" and "answer") and
+# N is a correlative number from 0 to total exams 
+# being created minus one. 
+#
+# To create the web form exams (or answers if you 
+# want to show them in the web) pass the LaTeX
+# code through "tth" (http://hutchinson.belmont.ma.us/tth/). 
+#
+# It also creates mn-correct, a text file where
+# each line starts with the exam number (001, 002,
+# ...) followed by the correct answers for each 
+# question (A,B,C... for # multiplechoice, A=true, 
+# B=false for true/false and just A's for short-
+# answer), and mn-logfile with information on
+# the tasks done by manyex. 
+#
+# Look at mc-logfile after each run for possible
+# errors.
+#
+##################################################
+
+##################################################
+#
+#  Base directory for database of exercises
+#
+##################################################
+directory "../example_base"
+
+##################################################
+#
+# 1st part: Options and definitions for latex file
+#
+##################################################
+
+# Options for documentclass article
+documentclassoptions "12pt,a4paper"
+
+# Packages to be included - I
+# configure my preferred document layout in manyex.sty, which
+# you can find in this same directory
+usepackage "manyex"
+
+
+# Master tex file with macro definitions (<mastertex>.sty)
+mastertex "master"
+
+# Latex file prefix for the exams (<examtex>.tex)
+examtex "exam"
+
+# Latex file prefix for the answers (<answertex>.tex)
+answertex "answer"
+
+# Prefix for exercise files (all have to start with this)
+# Be careful not to have some other files in the exercise
+# database directories starting also with this prefix. For 
+# instance grapchics filenames should start differently. 
+exerprefix "exer"
+
+# Options for web form
+# These options will define the parameters of the html form
+pagetitle "Final exam"
+formaction "http://www.examplemanyex/cgi-bin/test.cgi"
+inifield ( name="firstname" label="First Name: " type="text" size="40")
+inifield ( name="lastname" label="Last Name: " type="text" size="40")
+inifield ( name="grup" label="Group: " type="text" size="5")
+inifield ( name="dni" label="Student ID: " type="text" size="10" 
+  text="If you haven't been assigned a Student ID yet enter XXXXXXX:")
+  requirefield "Your have to enter your Student ID"
+textsubmit "I finished!" 
+
+##################################################
+#                                                #
+#  2nd part: describe the tests to be created    #
+#                                                #
+##################################################
+
+# Set random seed
+# If you change this number the tests created
+# will be different. With this you can always reproduce
+# the same sequence of exams, if needed. 
+seed 8726
+
+# Set first serial number (exam numbering). 
+# The serial number used will start with the number below
+# and will increase by 1.
+serial 1
+
+# Define exercise types and how many exercises are required 
+# per type. The first argument is an integer expressing 
+# how many exercises of this type are to be included in the
+# exam. There should be enough exercises of this type in the 
+# corresponding subdir of the exercise database (or subdirs, 
+# more than one can be specified). The second argument 
+# specifies (between quotes) the name of the subdir where
+# the exercises are contained within the exercise database. 
+# More than one subdir can be speficied:
+# use 3 from "1num_1", "1num_2"
+# for instance. 
+
+# exercise/endexercise lumps all true/false questions together 
+# and puts a header "Exercise 1" in front of them, otherwise each
+# true/false question would be indexed: "Exercise 1 - Question 1", 
+# "Exercise 2 - Question 2"... and so on. 
+exercise
+use 5 from "1num_t"
+use 5 from "Normal_t"
+endexercise
+# We now include the rest of exercises
+use 1 from "1num_m"
+use 1 from "Normal_m"
+use 1 from "Normal_s"
+
+# Total number of exams to create, you can create as many exams
+# as you want, they will be all different unless you have very 
+# few exercises in the database and you request a lot of exams
+create 4
+
+##################################################
+### End test-description file
+##################################################
+@end verbatim
+
+Once you have generated the html forms, you can place them in a web
+server, and with the appropiate scripts you can use them so that they
+are opened randomly and the results saved for later processing and
+grading. 
+
+
+@node Index,  , A complete example, Top
+@unnumbered Index
+     
+@bye
+

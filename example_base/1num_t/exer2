@@ -1,0 +1,9 @@
+block (type=truefalse)
+question
+: The coefficient of variation is a summary of the form of the ditribution. 
+answer
+False, the coefficient of variation measures spread, it is simply the 
+standard deviation (a measure of spread) divided by the mean. 
+endanswer
+endquestion
+endblock

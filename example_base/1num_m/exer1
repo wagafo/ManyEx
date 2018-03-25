@@ -1,0 +1,129 @@
+#
+#  Exercise 1 of example database of questions
+#  Exercise on 1 numerical variable - multiplechoice
+#  6 questions
+#
+
+title "Countries that have won the World Cup (1950-2002)"
+block (type=multiplechoice rearrange=yes)
+statement
+The following table shows the list of countries that have won
+the World Cup in the period 1950-2002. We are interested in 
+studying the percentage of times that a given country has won 
+the World Cup. 
+
+\begin{center}
+\begin{tabular}{c c}
+\hline\hline
+Year & Country \\
+\hline
+1950 &	1 \\
+1954 &	2 \\
+1958 &	3 \\
+1962 &	3 \\
+1966 &	4 \\
+1970 &	3 \\
+1974 &	2 \\
+1978 &	5 \\
+1982 &	6 \\
+1986 &	5 \\
+1990 &	2 \\
+1994 &	3 \\
+1998 &	7 \\
+2002 &	3 \\
+\hline
+\end{tabular}
+\end{center}
+
+Key: Uruguay=1, Germany=2, Brazil=3, England=4, Argentina=5,
+Italy=6, France=7.
+
+Answer the following questions:
+endstatement
+
+question
+The "Country" variable is:
+. a numerical continuous variable.
+. a numerical discrete variable.
+. an absolute frequency.
+. a relative frequency.
+; None of the above options is correct. 
+answer
+It is a categorical variable, despite the fact that is is codified
+with numbers. Numbers in this case are just labels for the country name.
+endanswer
+endquestion
+
+question
+Organize the data in a frequency table. What values does the variable have?
+. 1, 2, 3, 4, 5, 6, 7.
+. 1950,1954,1958,1962, 1966, 1970, 1974, 1978, 1982, 1986, 1990,
+1994, 1998, 2002.
+. 1, 2, 3, 5.
+. It does not take values. 
+: None of the abofe options is correct. 
+answer
+The variable is "Country" and it can have values that go from 1 to 7, 
+corresponding to the 7 countries mentioned in the sample. 
+endanswer
+endquestion
+
+question
+In this data set, an individual is...
+. A country. 
+. A year. 
+. A number between 1 and 7. 
+. A number between 1 and 5.
+: None of the above options is correct. 
+answer
+A country, and its frequency is how manyt times it has won the World Cup. 
+endanswer
+endquestion
+
+question
+The statement "a 86\% of the countries has won the World Cup no more 
+than 2 times since 1950" is referring to:
+. An absolute frequency. 
+. A relative frequency. 
+. A cumulative absolute frequency. 
+. A cumulative relative frequency.
+; None of the above options is correct. 
+answer
+It is clearly not an absolute frequency, since a percentage is given. But
+furthermore it is not a cumulative frequency either, since cumulative 
+frequencies make only sense for numerical variables, where the values of 
+the variable can be ordered and its frequencies accumulated. Therefore
+none of the options is correct. 
+endanswer
+endquestion
+
+question
+To represent this distribution graphically, one can use:
+. A bar diagram.
+. A histogram.
+. A stem-and-leaf plot.
+. An approximate drawing.
+: None of the above options is correct.
+answer
+The most appropiate graphical representation for a categorical variables is 
+a bar diagram
+endanswer
+endquestion
+
+question
+To describe this distribution one has to comment:
+. A comparison between the percentage of times that countries have one 
+the World Cup. 
+. The center and the spread.
+. The form and extreme values, if any. 
+. The center, the spread, the form and extreme values, if any. 
+: None of the above options is correct. 
+answer
+Being a categorical variable, there is only one appropiate numerical summary: 
+the proporton or percentatge of cases in each category. 
+endanswer
+endquestion
+endblock
+
+
+

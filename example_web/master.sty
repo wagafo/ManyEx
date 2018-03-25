@@ -1,0 +1,133 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%
+%%%
+%%% Master latex file to generate web form exams
+%%%
+%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%% Global header. This macro is called once at the beginning of the
+%%% batch of exams.
+
+\def\tthdump#1{#1} % Do nothing. The following are not done for TtH.
+                   % Useful to put LaTeX code that will not be used
+                   % by tth. 
+% This counter will be used for a hack for correct numbering of 
+% questions, usually it is not needed except when lumping true/false
+% exercises together
+\newcounter{question}\setcounter{question}{1}
+
+\newcommand{\mnglobalheader}{}
+
+%%% This will be used in the answer output
+\newcommand{\mnanswerpaperheader}{
+\smallskip
+
+\centerline{\Large Answers for the exam:}
+
+\smallskip
+}
+
+%%% Print this on each exam, before the exercises
+\newcommand{\mnpaperheader}{
+
+{\bf\Large Universitat Pompeu Fabra}
+
+{\bf\Large Group: 01}
+
+{\bf\Large Permutation Number: \mnserialnumber}
+
+\centerline{\Large Final Exam}
+
+\bigskip
+
+}
+
+%%% Print this on each exam, after the questions. 
+%%% Questions are numbered correlatively by default, extending over 
+%%% different exercises. With the definitions here the numbering 
+%%% will restart at each exercise. Usually just \mnquestionnumber is
+%%% used. 
+\newcommand{\mnpaperfooter}{}
+
+
+%%% The next definitions are specifid for html form exams. They format
+%%% different aspects of the form fields. 
+\newcommand{\mnformheader}{
+Fill in your personal data. Please enter the data correctly otherwise
+we will not be able to identify your test and it will not be graded:
+
+}
+
+\newcommand{\mnformfooter}{
+
+\smallskip
+
+{\bf \large VERY IMPORTANT: Do not forget to click on ``I finished
+at the end of the test''.}
+
+}
+
+\newcommand{\mnsubmitheader}{
+\bigskip
+
+If you have finished you can send your test for correction, by
+clicking on the following button:
+
+}
+
+\newcommand{\mnsubmitfooter}{}
+
+
+
+
+%%% Print this before each exercise
+\newcommand{\mnexerciseheader}{
+\setcounter{question}{1}
+{\noindent \bf \large Exercise \mnexercisenumber}: }
+
+%%% This will be used by the group of true/false questions. This macro
+%%% is put in front of an exercise/enexercise group of exercises.
+\newcommand{\mnexercisestartheader}
+{Say if the following statement are true or false:
+
+\smallskip
+
+}
+
+%%% Print this after each exercise - The ``question'' counter is a
+%%% hack to allow for correct numbering of questions within exercises
+\newcommand{\mnexercisefooter}{}
+
+%%% Print this before each question
+\newcommand{\mnquestionheader}{
+{\noindent \bf Question \arabic{question}: 
+\addtocounter{question}{1}}}
+
+%%% Print this after each question
+\newcommand{\mnquestionfooter}{}
+
+%%% Print this in answer files before the answers
+\newcommand{\mnanswerheader}{
+\smallskip
+
+Answer:
+
+\smallskip}
+
+
+%%% Print this in answer files after the answers
+\newcommand{\mnanswerfooter}{}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%
+%%%
+%%% End of master file
+%%%
+%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

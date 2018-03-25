@@ -1,0 +1,15 @@
+#
+#  Exercise 4 of example database of questions
+#  Exercise on normal distribution - true/false
+#  1 question
+#
+
+block (type=truefalse)
+question
+. At a normal distribution a 95\% of the frequencies fall
+in an interval $[\mu-\sigma,\mu+\sigma]$.
+answer
+True, this is a part of the 68-95-99,7\% rule.
+endanswer
+endquestion
+endblock

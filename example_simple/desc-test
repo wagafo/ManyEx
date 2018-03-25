@@ -1,0 +1,8 @@
+# test description file
+
+seed 1234
+
+exercise
+use 1 from "comb","perm"
+endexercise
+create 2

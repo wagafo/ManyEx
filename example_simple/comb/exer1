@@ -1,0 +1,9 @@
+block
+question
+The binomial coefficient ${n \choose k}$ equals
+. ${n \choose n-k}$.
+. $0$ if $k=0$.
+: The previous two answers are incorrect.
+endquestion
+endblock
+

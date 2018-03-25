@@ -1,0 +1,122 @@
+##################################################
+##################################################
+##################################################
+# This is a test description file for "manyex"
+#
+# To create the normal LaTeX exams give the command
+#
+#    manyex -n -f file-name
+#
+# where file-name is the name of this file.
+# 
+# This will create "exam".tex and "answer".tex, 
+# where "exam" and "answer" are the prefixes 
+# that you choose below (if not defined the pre-
+# fixes will be actually "exam" and "answer"). 
+#
+# It also creates mn-correct, a text file where
+# each line starts with the exam number (001, 002,
+# ...) followed by the correct answers for each 
+# question (A,B,C... for # multiplechoice, A=true, 
+# B=false for true/false and just A's for short-
+# answer), and mn-logfile with information on
+# the tasks done by manyex. 
+#
+# Then compile the latex file with latex, for
+# instance
+# 
+#   latex exam.tex
+#
+# You can also complile the answer file if you
+# want to distribute the answers after the exam. 
+# The output will contain all generated exams. 
+#
+# Look at mn-logfile after each run for possible
+# errors.
+#
+##################################################
+
+##################################################
+#
+#  Base directory for database of exercises
+#
+##################################################
+directory "../example_base"
+
+##################################################
+#
+# 1st part: Options and definitions for latex file
+#
+##################################################
+
+# Options for documentclass article
+documentclassoptions "12pt,a4paper"
+
+# Packages to be included - I use "epsf" for graphics, and 
+# configure my preferred document layout in manyex.sty, whic
+# you can find in this same directory
+usepackage "epsf,manyex"
+
+# Master tex file with macro definitions (<mastertex>.sty)
+mastertex "master"
+
+# Latex file prefix for the exams (<examtex>.tex)
+examtex "exam"
+
+# Latex file prefix for the answers (<answertex>.tex)
+answertex "answer"
+
+# Prefix for exercise files (all have to start with this)
+# Be careful not to have some other files in the exercise
+# database directories starting also with this prefix. For 
+# instance grapchics filenames should start differently. 
+exerprefix "exer"
+
+##################################################
+#                                                #
+#  2nd part: describe the tests to be created    #
+#                                                #
+##################################################
+
+# Set random seed 
+# If you change this number the tests created
+# will be different. With this you can always reproduce
+# the same sequence of exams, if needed. 
+seed 8726
+
+# Set first serial number (exam numbering). 
+# The serial number used will start with the number below
+# and will increase by 1.
+serial 1
+
+# Define exercise types and how many exercises are required 
+# per type. The first argument is an integer expressing 
+# how many exercises of this type are to be included in the
+# exam. There should be enough exercises of this type in the 
+# corresponding subdir of the exercise database (or subdirs, 
+# more than one can be specified). The second argument 
+# specifies (between quotes) the name of the subdir where
+# the exercises are contained within the exercise database. 
+# More than one subdir can be speficied:
+# use 3 from "1num_1", "1num_2"
+# for instance. 
+
+# exercise/endexercise lumps all true/false questions together 
+# and puts a header "Exercise 1" in front of them, otherwise each
+# true/false question would be indexed: "Exercise 1 - Question 1", 
+# "Exercise 2 - Question 2"... and so on. 
+
+# We now include the rest of exercises
+use 1 from "1num_m"
+
+# Total number of exams to create, you can create as many exams
+# as you want, they will be all different unless you have very 
+# few exercises in the database and you request a lot of exams
+create 4
+
+##################################################
+### End test-description file
+##################################################
+
+
+

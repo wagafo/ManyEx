@@ -1,0 +1,78 @@
+#
+#  Exercise 3 of example database of questions
+#  Exercise on normal distribution - multiplechoice
+#  6 questions
+#
+
+title "Noise in the street"
+block (type=multiplechoice rearrange=yes)
+statement
+The noise at the crossing of the Balmes and Aragó streets in Barcelona 
+has been recorded during 50 days and it has been determined that 
+the level of noise follows an approximately normal distribution with mean
+equal to 20 deciBels and a standard deviation equal to 1 deciBel. 
+endstatement
+
+
+question
+What is the approximate number of days during the period of 50 days recorded 
+where the noise level is equal or larger than 21.28 deciBel?
+. 5 days
+. 10 days
+. 15 days
+. 2 days
+: None of the above optins is correct. 
+endquestion
+
+question
+What is the approximate percentage of days were the noise is less than 19
+deciBels?
+. 16 \%
+. 20 \%
+. 10 \%
+. 90 \%
+: None of the above optins is correct. 
+endquestion
+  
+question
+What is the approximate percentage of days when the noisce is larger than
+22 deciBels?
+. 2.5\%
+. 0.5 \%
+. 5 \%
+. 95 \%
+: None of the above optins is correct. 
+endquestion
+  
+question
+What is the approximate percentage of days where the noise level lies
+between 19.5 and 20.5 deciBels?
+. 38,30 \%
+. 48,30 \%
+. 28,30 \%
+. 18,30 \%
+: None of the above optins is correct. 
+endquestion
+
+question
+On a day with standardized normal level of -1, is there more or less noise
+than the median of the distribution?
+. Less.
+. We do not have enough information to answer the question.
+. There is the same noise
+. More. 
+: None of the above optins is correct. 
+endquestion
+endblock
+
+block (type=multiplechoice rearrange=yes)
+question
+If during some days there are works and the noise level increases 2
+deciBels, the mean of the standardized distribution
+. does not change. 
+. increases.
+. decreases.
+. it becomes negative. 
+: None of the above optins is correct. 
+endquestion
+endblock

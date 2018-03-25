@@ -1,0 +1,57 @@
+#
+#  Exercise 2 of example database of questions
+#  Exercise on normal distribution - shortanswer
+#  3 questions
+#
+
+title "Normal Distribution"
+block (type=shortanswer rearrange=no)
+statement
+The family business "Drink Team" produces grapes for wine, employing
+1,000 workers. The management knows that each worker collects a mean 
+of 50 kgs of grapes, with a standard deviatin of 3 kgs and the distribution
+is approximately normal. 
+endstatement
+
+question
+What percentage of workers produce less than a worker with 
+standardized procution of 0.45?
+answer
+We look at the table of the standard normal distribution and we 
+find that for $z=0.45$ (this is the percentage of frequencies to the 
+left of this value of $z$) the corresponding value is 0.6736. Therefore
+a 67.36\% of workers will produce les than a worker with standardized
+value of 0.45.
+endanswer
+endquestion
+
+question
+Workers producing more than 57 kgs will be rewarded, and there is a budget
+of 1,000 euros for the rewards. How much will a rewarded worker get?
+answer
+We standardize: 
+
+\[ z= (57-50)/3=2.33. \]
+
+Checking the table, we observe that a 1\% of the frequencies are on the
+right of 2.33, therefore 1\% of the workers will be rewarded. Over 1,000
+workers a 1\% corresponds to 10 workers. Since the budget is of 1,000 euros,
+each rewarded worker will get 100 euros. 
+endanswer
+endquestion
+
+question
+Less productive workers will be moved to the packing section. If all
+workers producing less than 43 kgs will be moved to packing, how many
+workers will be moved?
+
+answer
+We standardize:
+
+\[ z= (43-50)/3=-2.33. \]
+
+At the table we observe that to the left of this value we have 1\% of the 
+frequencies, therefore over 1,000 this represents 10 workers. 
+endanswer
+endquestion
+endblock

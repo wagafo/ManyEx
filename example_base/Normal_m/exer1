@@ -1,0 +1,123 @@
+#
+#  Exercise 1 of example database of questions
+#  Exercise on normal distribution - multiplechoice
+#  6 questions
+#
+
+title "Rainfall in Catalunya"
+block (type=multiplechoice rearrange=yes)
+statement
+During the last 50 years, yearly average rainfall follows an 
+approximately normal distribution with mean equal to 20 l/m$^2$
+and a standard deviation of 3 l/m$^2$. 
+endstatement
+question
+What's the percentage of years that has rained more than 23 l.?
+. Un 16\%
+. Un 32\%
+. Un 22\%
+. Un 24\%
+: None of the above options is correct. 
+answer
+According to the rule 100 - 68=32\% of the frequencies are outside the 
+limit of the mean plus/minus one standard deviation. Looking at only
+one side of the distribution we have 32/2=16\%. 
+
+We can also compute the percentage standardizing $X$:
+
+\[ {{23 - 20} \over {3}} = 1 \]
+
+Looking at the table of standard normal we get that the proportion of 
+frequencies lying ot the right of $z=1$ is approximately 16\%. 
+endanswer
+endquestion
+
+question
+What is the approximate maximum rainfall of the 2.5\% of years with less 
+rain?
+. 14 l/m$^2$
+. 12 l/m$^2$
+. 16 l/m$^2$
+. 10 l/m$^2$
+: None of the above options is correct. 
+answer
+This can computed with the rule, since the mean plus/minus 2 standard 
+deviations leaves 5\% of the frequencies outside the limits, looking at 
+only one side we have 2.5\%, therefore $20 - 2\cdot 3=14$.
+
+We can also look at
+the table of the standard distribution, we find that 2.5\% of the 
+frequencies are on the left of $z=-1.96$, so we recover the corresponding 
+$X$: 
+
+\[ X = 20 - 1.96 \cdot 3 = 14.12 \]
+endanswer
+endquestion
+  
+question
+What approximate percentage of years has rained less than 16 l.?
+. 9.18 \%
+. 12.34 \%
+. 14.93 \%
+. 6.12 \%
+: None of the above options is correct. 
+answer
+We standardize:
+
+\[ {{ 16 - 20}\over{3}} = -1.33 \]
+
+The percentage of frequencies on the left (smaller values)
+ of $z=-1.33$ in the standard normal table is: 9.18\%.
+endanswer
+endquestion
+  
+question
+What is the approximate maximum rainfall of the 25\% years with less rain?
+. 18 l/m$^2$
+. 22 l/m$^2$
+. 25 l/m$^2$
+. 15 l/m$^2$
+: None of the above options is correct. 
+answer
+We look for the $z$ in the standard normal table that leaves 25\% of the 
+frequencies to the left, and we get $z=-0.67$. We recover $X$:
+
+\[ 20 - 0.67 \cdot 3 = 17.99 l/\mbox{m}^2 \]
+endanswer
+endquestion
+
+question
+What is the approximate percentage of years that has rained between 
+14 and 23 l/m$^2$?
+. 82.5 \%
+. 24 \%
+. 18.5 \%
+. 15 \%
+: None of the above options is correct. 
+answer
+According to other questions, 2.5\% of the days it rains less than 14 l/m$^2$ 
+and 16\% of days it rains more than 23 l/m$^2$, therefore between these
+to limits it rains:
+
+\[ 100 - 2.5 - 16 = 82.5 \mbox{\%} \]
+of the days.
+endanswer
+endquestion
+endblock
+
+block (type=multiplechoice rearrange=yes)
+question
+What should be the approximate shape of the rainfall distribution so that
+the computations done in this exercise are valid?
+. symmetric
+. skewed to the left
+. skewed to the right
+. bimodal
+: None of the above options is correct. 
+answer
+The computations here are valid if the underlying distributin is normal, and 
+the normal distribution is symmetric.
+endanswer
+endquestion
+endblock
+

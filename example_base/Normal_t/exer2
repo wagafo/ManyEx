@@ -1,0 +1,16 @@
+#
+#  Exercise 2 of example database of questions
+#  Exercise on normal distribution - true/false
+#  1 question
+#
+
+block (type=truefalse)
+question
+: At every normal distribution a 2\% of the frequencies is
+less than 0.95.
+answer
+This statement is false because it depends on the mean and the
+standard deviation. 
+endanswer
+endquestion
+endblock

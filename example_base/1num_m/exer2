@@ -1,0 +1,107 @@
+#
+#  Exercise 2 of example database of questions
+#  Exercise on 1 numerical variable - multiplechoice
+#  6 questions
+#
+
+title "Student pocket cash"
+auxiliar "stem1.eps"
+webfile "stem1.jpg"
+block (type=multiplechoice rearrange=yes)
+statement
+The following is a stem-and-leaf plot of the variable "pocket cash", 
+measure in euros with no cents, based on answers of a survey of 15 
+students of group 3 of Data Analysis 101:
+
+\bigskip
+
+\tthdump{
+\begin{center}
+\leavevmode
+\epsfxsize=55pt
+\epsfbox{stem1.eps}
+\end{center}
+}
+%%tth:\begin{html}<p><img SRC="stem1.jpg" height=300 width=250></center>\end{html}
+endstatement
+
+question
+The "pocket cash" variable is:
+.  Numerical.
+.  Continuous categorical.
+.  Categorical.
+.  Discrete categorical.
+: None of the above options is correct.
+answer
+It is clearly a numerical variable, the amount of money that students 
+carry in their pockets. 
+endanswer
+endquestion
+
+question
+The fourth observation, in the ordered list of cases from the smallest to 
+the largest value, is:
+. 35
+. 4
+. 12
+. 17
+; None of the above options is correct. 
+answer
+The fourth observation is 11, therefore no option is correct. 
+endanswer
+endquestion
+
+question
+The center of the distributio is:
+. 22 euros
+. Between 17 and 22 euros
+. 12 euros
+. 49 euros
+: None of the above options is correct. 
+answer
+Since there are 15 cases (an uneven number of cases), there is a 
+case which lies exactly in the center, the 8th case. We check the 
+ordered list and we see that this cas has a value equal to 22. 
+endanswer
+endquestion
+
+question
+The form of the distribution is:
+. Skewed to the right. 
+. Perfectly symmetric. 
+. Skewed to the left. 
+. It does not have a form. 
+: None of the above options is correct. 
+answer
+If there weren't some unusually high values, the distribution would be 
+more symmetric, therefore we have skewness to the right (to high values). 
+endanswer
+endquestion
+
+question
+The distribution
+. has an outlier equal to 86.
+. does not have outliers.
+. has two outliers equal to 4 and 5.
+. has one outlier equal to 49. 
+: None of the above options is correct. 
+answer
+The case with a value equal to 86 is clearly isolated from the rest and 
+therefore we can consider it an outlier.
+endanswer
+endquestion
+
+question
+The leaf unit is equal to 
+. 1.
+. 10.
+. 100.
+. euro cents.
+: None of the above options is correct. 
+answer
+The values that we observe in the plot are equal to the actual values 
+in euros, therefore the leaf unit is equal to 1.
+endanswer
+endquestion
+endblock
+

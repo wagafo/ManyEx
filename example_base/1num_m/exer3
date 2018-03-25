@@ -1,0 +1,155 @@
+#
+#  Exercise 3 of example database of questions
+#  Exercise on 1 numerical variable - multiplechoice
+#  6 questions
+#
+
+title "Poverty in the world - 2005"
+auxiliar "stem2.eps"
+webfile "stem2.jpg"
+block (type=multiplechoice rearrange=yes)
+statement
+The following data set shows the percentage of people under the
+poverty line in different countries for 2005:
+
+\begin{center}
+\begin{tabular}{l c}
+\hline\hline
+Country & Poverty Percentage \\
+\hline
+Australia & 11.2 \\
+Austria	 & 9.3 \\
+Canada	& 10.3 \\
+Denmark & 4.3 \\
+Finland & 6.4 \\
+France	& 7.0 \\
+Germany & 9.8 \\ 
+Greece	& 13.5 \\
+Italy & 12.9 \\
+Portugal & 13.7 \\
+United Kingdom & 11.4 \\
+\multicolumn{2}{c}{Source: OCDE 2005} \\
+\hline
+\end{tabular}
+\end{center}
+
+endstatement
+
+question
+In this data set, an individual is
+. A country.
+. A number between 4 and 14. 
+. A poverty percentage. 
+. A year. 
+: None of the above options is correct. 
+answer
+The cases that we have in our sample correpond to countries for which we
+observe a characteristic, the percentage of poor people (according
+to the poverty line criterium). Therefore the individuals are countries. 
+endanswer
+endquestion
+
+question
+The variable `Poverty percentage'' is:
+. Numerical.
+. Categorical continuous.
+. Categorical. 
+. Categorical discrete. 
+: None of the above options is correct. 
+answer
+It is a numerical variable, we quantify the percentage of poor people for 
+each country. 
+endanswer
+endquestion
+endblock
+
+# We start a new block, since we do not want to permute completely
+# the questions because it would affect the logical flow of the exercise. 
+
+# \tthdump is a macro that has to be defined and included in the 
+# master LaTeX file. It is used to ignore the incluson of the .eps
+# file when you are building a html form exam, in which case 
+# the .jpg file will be included. See the tth manual for the %%tth
+# construct.
+
+block (type=multiplechoice rearrange=no)
+question
+
+Draw a stem-and-leaf plot for this distribution (do not round the 
+leafs or split the stems). The number of stems in the diagram that 
+you get is:
+. 10
+. 8
+. 11
+. Less than 8
+: None of the above options is correct. 
+answer
+The stem-and-leaf plot is the following
+
+
+\bigskip
+
+\tthdump{
+\begin{center}
+\leavevmode
+\epsfxsize=40pt
+\epsfbox{stem2.eps}
+\end{center}
+}
+%%tth:\begin{html}<p><img SRC="stem2.jpg" height=300 width=250></center>\end{html}
+
+There are 10 stems in the diagram.
+endanswer
+endquestion
+
+question
+According to the stem-and-leaf plot, the center of the distribution is:
+. 9.8
+. Between 8 and 9
+. 10.3
+. 11.2
+: None of the above options is correct. 
+answer
+The center is defined as the case which is larger than 50\% of the cases
+and smaller than 50\%. Since there is an uneven number of cases (11), at
+the plot it will correspond with the case in the 6th place, that is 9.8.
+endanswer
+endquestion
+endblock
+
+# Now we allow for the last two questions to permute, but they will be
+# always located at the end. 
+
+block (type=multiplechoice rearrange=yes)
+question
+
+We want now to reduce the number of stems to only 2 stems. To achieve this,
+we will have to:
+. round and split the stems in 2.
+. round.
+. split the stems in 2. 
+. split the stems in 5.
+: none of the above options is correct. 
+answer
+Rounding to the tens, we get two stems (0 and 1), therefor to get 4 stems we 
+have to split then afterwards in 2. Therefore the correct answer is 
+round and split in 2. 
+endanswer
+endquestion
+
+question
+The form of the distribution is:
+. Skewed to the left. 
+. Quite symmetric. 
+. Skewed to the right. 
+. Neither symmetric nor skewed. 
+: None of the above options is correct. 
+answer
+There are some small values that break the symmetry of the distribution, 
+therefore the distribution is skewed to the left. 
+endanswer
+endquestion
+endblock
+
+
+

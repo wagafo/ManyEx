@@ -1,0 +1,16 @@
+#
+#  Exercise 3 of example database of questions
+#  Exercise on normal distribution - true/false
+#  1 question
+#
+
+block (type=truefalse)
+question
+. We can know exactly how a normal distribution is if we are
+given its mean and its standard deviation. 
+answer
+True, a normal distribution is completely characterized by its mean
+and its standard deviation. 
+endanswer
+endquestion
+endblock

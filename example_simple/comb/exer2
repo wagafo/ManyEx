@@ -1,0 +1,11 @@
+block
+question
+In how many ways can we choose $n$ objects from $k$ different objects,
+if the order of choice does not matter?
+. ${k(k-1)\cdots(k-n+1) \over n\cdot(n-1)\cdots2\cdot 1}$
+. ${n(n-1)\cdots(n-k+1) \over k\cdot(k-1)\cdots2\cdot 1}$
+endquestion
+endblock
+
+
+

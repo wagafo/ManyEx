@@ -1,0 +1,10 @@
+block (type=truefalse)
+question
+. If the distribution is skewed to the right, the mean will be always larger
+than the median. 
+answer
+True, the mean is sensitive to outliers and will be moved to the right 
+by abnormally high values in the distribution (right-skewness). 
+endanswer
+endquestion
+endblock

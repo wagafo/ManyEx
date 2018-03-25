@@ -1,0 +1,15 @@
+#
+#  Exercise 1 of example database of questions
+#  Exercise on normal distribution - true/false
+#  1 question
+#
+
+block (type=truefalse)
+question
+. The normal distribution is always symmetric
+answer
+This is true. 
+The definition of a normal distribution implies a symmetric distribution.
+endanswer
+endquestion
+endblock
